@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "namespace": "no.nav.paw.avro.besvarelse",
+  "namespace": "no.nav.paw.besvarelse",
   "name": "ArbeidssokerBesvarelseEndretEvent",
   "fields": [
     {
