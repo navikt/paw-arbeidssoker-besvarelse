@@ -35,7 +35,8 @@ class ArbeidssokerRegistreringConsumer(
                     arbeidssokerRegistrertService.opprettArbeidssokerRegistrert(arbeidssokerRegistrert)
                 } catch (error: Exception) {
                     logger.error("Feil ved konsumering av melding fra $topic", error)
-                    throw error
+                    // TODO: Remove, get to current offset
+                    // throw error
                 }
                 consumer.commitSync()
             }
