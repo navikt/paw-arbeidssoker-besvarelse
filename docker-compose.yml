@@ -8,7 +8,7 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=arbeidssoker_registrert
+      - POSTGRES_DB=arbeidssoker-registrert
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.1

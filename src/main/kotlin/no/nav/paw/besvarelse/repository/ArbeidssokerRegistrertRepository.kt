@@ -97,6 +97,6 @@ class ArbeidssokerRegistrertRepository(
     )
 
     companion object {
-        const val ARBEIDSSOKER_REGISTRERT_TABELL = "arbeidssoker_registrert"
+        const val ARBEIDSSOKER_REGISTRERT_TABELL = "arbeidssoker-registrert"
     }
 }
