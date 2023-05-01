@@ -81,6 +81,11 @@ tasks {
     check {
         dependsOn("installKotlinterPrePushHook")
     }
+
+    task<JavaExec>("importerCsv") {
+        mainClass.set("no.nav.paw.besvarelse.utils.CsvToArbeidssokerRegistrertKt")
+        classpath = sourceSets["main"].runtimeClasspath
+    }
 }
 
 ktor {
@@ -103,6 +108,8 @@ dependencies {
 
     // Annet
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:$jackson_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
     implementation("org.apache.avro:avro:$avro_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
