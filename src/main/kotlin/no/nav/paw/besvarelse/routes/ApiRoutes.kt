@@ -1,16 +1,13 @@
 package no.nav.paw.besvarelse.routes
 
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
-import io.ktor.server.auth.authenticate
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
-import io.ktor.server.routing.get
-import io.ktor.server.routing.patch
-import io.ktor.server.routing.route
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
-import no.nav.paw.besvarelse.domain.request.EndreSituasjonRequest
+import no.nav.paw.besvarelse.domain.request.EndreBesvarelseRequest
 import no.nav.paw.besvarelse.services.ArbeidssokerRegistrertService
 import no.nav.paw.besvarelse.utils.getPidClaim
 import no.nav.paw.besvarelse.utils.logger
@@ -33,7 +30,7 @@ fun Route.apiRoutes() {
             patch("/besvarelse/situasjon") {
                 logger.info("Endrer situasjon i besvarelse til bruker")
 
-                val endretSituasjon = call.receive<EndreSituasjonRequest>()
+                val endretSituasjon = call.receive<EndreBesvarelseRequest>()
                 val foedselsnummer = call.getPidClaim()
 
                 val arbeidssokerRegistrertResponse = arbeidssokerRegistrertService.endreSituasjon(

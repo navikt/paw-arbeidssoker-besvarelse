@@ -344,6 +344,9 @@ components:
         opprettet:
           type: "string"
           format: "date-time"
+        endret:
+          type: "string"
+          format: "date-time"
         endretAv:
           type: "string"
           enum:
