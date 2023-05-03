@@ -11,7 +11,7 @@ import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrertEntity
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
-import no.nav.paw.besvarelse.domain.request.EndreSituasjonRequest
+import no.nav.paw.besvarelse.domain.request.EndreBesvarelseRequest
 import no.nav.paw.besvarelse.plugins.StatusException
 import no.nav.paw.besvarelse.utils.logger
 import org.postgresql.util.PSQLException
@@ -66,19 +66,19 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun endreSituasjon(foedselsnummer: Foedselsnummer, endreSituasjonRequest: EndreSituasjonRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
+    fun endreSituasjon(foedselsnummer: Foedselsnummer, endreBesvarelseRequest: EndreBesvarelseRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
         logger.info("Endrer situasjon i besvarelsen i databasen")
 
         val arbeidssokerRegistrert = hentSiste(foedselsnummer)
             .copy(endretAv = endretAv)
 
-        if (arbeidssokerRegistrert.besvarelse.dinSituasjon?.verdi == endreSituasjonRequest.dinSituasjon) {
+        if (arbeidssokerRegistrert.besvarelse.dinSituasjon?.verdi == endreBesvarelseRequest.besvarelse.dinSituasjon.dinSituasjon) {
             logger.info("Forsøker å oppdatere 'dinSituasjon', men din situasjon er allerede endret")
             throw StatusException(HttpStatusCode.Conflict, "Situasjonen du forsøkte å endre er allerede satt")
         }
 
         val endretBesvarelse = arbeidssokerRegistrert.besvarelse
-            .copy(dinSituasjon = DinSituasjon(verdi = endreSituasjonRequest.dinSituasjon, endretAv = endretAv, endret = LocalDateTime.now()))
+            .copy(dinSituasjon = DinSituasjon(verdi = endreBesvarelseRequest.besvarelse.dinSituasjon.dinSituasjon, endretAv = endretAv, endret = LocalDateTime.now()))
 
         val arbeidssokerRegistrertEndret = arbeidssokerRegistrert.copy(besvarelse = endretBesvarelse)
         opprett(arbeidssokerRegistrertEndret)
