@@ -30,7 +30,7 @@ data class Config(
             name = "tokenx",
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
-            requiredClaims = RequiredClaims(dotenv["TOKEN_X_ISSUER"], arrayOf("pid"))
+            requiredClaims = RequiredClaims(dotenv["TOKEN_X_ISSUER"], arrayOf("acr=Level4"))
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
