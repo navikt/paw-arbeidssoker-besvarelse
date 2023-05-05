@@ -103,7 +103,7 @@ dependencies {
     // NAV security
     implementation("no.nav.security:token-validation-ktor-v2:$token_support_version")
     implementation("no.nav.security:token-client-core:$token_support_version")
-
+    implementation("com.github.navikt.tms-ktor-token-support:token-support-tokenx-validation:2023.05.05-13.06-1804c62927ea")
     // Ktor
 
     // Annet
