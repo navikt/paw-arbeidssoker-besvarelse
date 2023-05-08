@@ -7,7 +7,7 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
-import io.ktor.server.routing.patch
+import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import no.nav.paw.besvarelse.domain.request.EndreBesvarelseRequest
@@ -31,7 +31,7 @@ fun Route.apiRoutes() {
                 call.respond(HttpStatusCode.OK, registrering)
             }
 
-            patch("/besvarelse/situasjon") {
+            post("/besvarelse/situasjon") {
                 logger.info("Endrer situasjon i besvarelse til bruker")
 
                 val endretSituasjon = call.receive<EndreBesvarelseRequest>()
