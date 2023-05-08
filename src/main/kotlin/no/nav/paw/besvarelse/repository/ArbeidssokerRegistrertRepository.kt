@@ -72,13 +72,21 @@ class ArbeidssokerRegistrertRepository(
         val arbeidssokerRegistrert = hentSiste(foedselsnummer)
             .copy(endretAv = endretAv)
 
-        if (arbeidssokerRegistrert.besvarelse.dinSituasjon?.verdi == endreBesvarelseRequest.besvarelse.dinSituasjon.dinSituasjon) {
+        if (arbeidssokerRegistrert.besvarelse.dinSituasjon?.verdi == endreBesvarelseRequest.besvarelse.dinSituasjon.verdi) {
             logger.info("Forsøker å oppdatere 'dinSituasjon', men din situasjon er allerede endret")
             throw StatusException(HttpStatusCode.Conflict, "Situasjonen du forsøkte å endre er allerede satt")
         }
 
         val endretBesvarelse = arbeidssokerRegistrert.besvarelse
-            .copy(dinSituasjon = DinSituasjon(verdi = endreBesvarelseRequest.besvarelse.dinSituasjon.dinSituasjon, endretAv = endretAv, endret = LocalDateTime.now()))
+            .copy(
+                dinSituasjon = DinSituasjon(
+                    verdi = endreBesvarelseRequest.besvarelse.dinSituasjon.verdi,
+                    gjelderFra = endreBesvarelseRequest.besvarelse.dinSituasjon.gjelderFra,
+                    gjelderTil = endreBesvarelseRequest.besvarelse.dinSituasjon.gjelderTil,
+                    endretAv = endretAv,
+                    endret = LocalDateTime.now()
+                )
+            )
 
         val arbeidssokerRegistrertEndret = arbeidssokerRegistrert.copy(besvarelse = endretBesvarelse)
         opprett(arbeidssokerRegistrertEndret)
