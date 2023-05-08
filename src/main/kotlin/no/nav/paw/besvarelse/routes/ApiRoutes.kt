@@ -25,7 +25,6 @@ fun Route.apiRoutes() {
                 logger.info("Henter siste besvarelse til bruker")
 
                 val foedselsnummer = call.getPidClaim()
-                logger.info("pid-claim $foedselsnummer")
 
                 val registrering = arbeidssokerRegistrertService.hentSiste(foedselsnummer)
 
