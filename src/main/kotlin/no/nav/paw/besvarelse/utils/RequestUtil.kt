@@ -16,6 +16,6 @@ fun ApplicationCall.getClaim(issuer: String, name: String): String? =
 fun ApplicationCall.getPidClaim(): Foedselsnummer =
     getClaim("idporten", "pid")
         ?.let { Foedselsnummer(it) }
-        ?: getClaim("tokenx", "pid")
+        ?: getClaim("tokendings", "pid")
             ?.let { Foedselsnummer(it) }
         ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'pid'-claim i token fra issuer")
