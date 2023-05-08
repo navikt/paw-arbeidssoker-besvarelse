@@ -19,7 +19,7 @@ import org.koin.ktor.ext.inject
 fun Route.apiRoutes() {
     val arbeidssokerRegistrertService: ArbeidssokerRegistrertService by inject()
 
-    authenticate("tokendings") {
+    authenticate("tokendings", "idporten") {
         route("/api/v1") {
             get("/besvarelse") {
                 logger.info("Henter siste besvarelse til bruker")
