@@ -43,7 +43,7 @@ fun Route.apiRoutes() {
                     EndretAv.BRUKER
                 )
 
-                call.respond(HttpStatusCode.OK, arbeidssokerRegistrertResponse)
+                call.respond(HttpStatusCode.Created, arbeidssokerRegistrertResponse)
             }
         }
     }
