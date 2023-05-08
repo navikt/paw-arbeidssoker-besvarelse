@@ -27,10 +27,10 @@ data class Config(
             requiredClaims = RequiredClaims("idporten", arrayOf("pid", "acr"))
         ),
         AuthProvider(
-            name = "tokenx",
+            name = "tokendings",
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
-            requiredClaims = RequiredClaims(dotenv["TOKEN_X_ISSUER"], arrayOf("acr=Level4"))
+            requiredClaims = RequiredClaims("tokendings", arrayOf("acr=Level4"))
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
