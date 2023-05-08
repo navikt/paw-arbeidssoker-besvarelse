@@ -1,6 +1,8 @@
 package no.nav.paw.besvarelse.domain.besvarelse
 
 import java.time.LocalDateTime
+import kotlin.reflect.KClass
+import kotlin.reflect.full.memberProperties
 
 data class Besvarelse(
     val utdanning: Utdanning? = null,
@@ -12,8 +14,19 @@ data class Besvarelse(
     val dinSituasjon: DinSituasjon? = null,
     val fremtidigSituasjon: FremtidigSituasjon? = null,
     val tilbakeIArbeid: TilbakeIArbeid? = null
-)
+) {
+    fun sisteEndret(): LocalDateTime? {
+        val endretFields = this::class.memberProperties.mapNotNull { felt ->
+            felt.returnType.classifier?.let { classifier ->
+                (classifier as KClass<*>).memberProperties.filter { it.name == "endret" }
+            }
+        }.flatten()
 
+        val alleEndretDatoer = endretFields.mapNotNull { it.getter.call(this) as? LocalDateTime }
+
+        return alleEndretDatoer.maxOrNull()
+    }
+}
 data class Utdanning(
     val verdi: UtdanningSvar? = null,
     val gjelderFra: GjelderFra = null,
