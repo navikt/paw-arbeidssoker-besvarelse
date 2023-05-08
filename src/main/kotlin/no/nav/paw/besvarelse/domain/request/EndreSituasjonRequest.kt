@@ -12,7 +12,7 @@ data class Besvarelse(
     val dinSituasjon: DinSituasjon
 )
 data class DinSituasjon(
-    val dinSituasjon: DinSituasjonSvar,
+    val verdi: DinSituasjonSvar,
     val gjelderFra: GjelderFra,
     val gjelderTil: GjelderTil
 )
