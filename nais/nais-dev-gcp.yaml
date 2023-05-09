@@ -56,6 +56,8 @@ spec:
         rules:
           - application: aia-backend
             namespace: paw
+          - application: debug-dings
+            namespace: plattformsikkerhet
   gcp:
     sqlInstances:
       - type: POSTGRES_14
