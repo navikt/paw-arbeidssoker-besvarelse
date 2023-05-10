@@ -18,6 +18,7 @@ data class ArbeidssokerRegistrert(
         registreringsId,
         besvarelse,
         null,
+        opprettetDato.toLocalDateTime(),
         EndretAv.SYSTEM
     )
 }

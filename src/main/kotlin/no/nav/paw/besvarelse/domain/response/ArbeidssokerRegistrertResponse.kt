@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 data class ArbeidssokerRegistrertResponse(
     val registreringsId: Int,
     val besvarelse: Besvarelse,
-    val opprettet: LocalDateTime,
     val endretAv: EndretAv,
-    val endret: LocalDateTime?
+    val endret: LocalDateTime?,
+    val registreringOpprettet: LocalDateTime?
 )

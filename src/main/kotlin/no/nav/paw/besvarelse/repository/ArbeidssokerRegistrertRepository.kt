@@ -48,13 +48,14 @@ class ArbeidssokerRegistrertRepository(
             sessionOf(dataSource, returnGeneratedKey = true).use { session ->
                 val query =
                     queryOf(
-                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, endret_av)
-                            |VALUES (?, ?, ?::int, ?::jsonb, ?)
+                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, registrering_opprettet, endret_av)
+                            |VALUES (?, ?, ?::int, ?::jsonb, ?, ?)
                         """.trimMargin(),
                         arbeidssokerRegistrertEntity.foedselsnummer.foedselsnummer,
                         arbeidssokerRegistrertEntity.aktorId.aktorId,
                         arbeidssokerRegistrertEntity.registreringsId,
                         objectMapper.writeValueAsString(arbeidssokerRegistrertEntity.besvarelse),
+                        arbeidssokerRegistrertEntity.registreringOpprettet,
                         arbeidssokerRegistrertEntity.endretAv.toString()
                     ).asUpdateAndReturnGeneratedKey
                 return session.run(query)
@@ -101,6 +102,7 @@ class ArbeidssokerRegistrertRepository(
         int("registrerings_id"),
         objectMapper.readValue(string("besvarelse")),
         localDateTime("opprettet"),
+        localDateTime("registrering_opprettet"),
         EndretAv.valueOf(string("endret_av"))
     )
 
