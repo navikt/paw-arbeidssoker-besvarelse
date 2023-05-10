@@ -19,6 +19,21 @@ https://arbeidssoker.besvarelse.intern.dev.nav.no/docs
 - [**Flyway**](https://flywaydb.org/)
 - [**Gradle**](https://gradle.org/)
 
+
+## Dev oppsett
+
+https://debug-dings.intern.dev.nav.no/debugger
+
+Sett audience til `dev-gcp:paw:paw-arbeidssoker-besvarelse`
+
+Bruk `access_token` i "Token Response" til å gjøre forespørsler mot https://arbeidssoker-besvarelse.intern.dev.nav.no
+
+Eksempel:
+
+```sh
+$ curl https://arbeidssoker-besvarelse.intern.dev.nav.no/api/v1/besvarelse -H 'Authorization: Bearer <access_token>'
+```
+
 ## Lokalt oppsett
 
 Under er det satt opp et par ting som må på plass for at applikasjonen og databasen skal fungere.
