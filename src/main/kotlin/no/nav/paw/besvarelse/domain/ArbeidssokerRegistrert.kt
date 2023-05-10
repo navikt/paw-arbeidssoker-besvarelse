@@ -9,7 +9,8 @@ data class ArbeidssokerRegistrert(
     val aktorId: AktorId,
     val registreringsId: Int,
     val besvarelse: Besvarelse,
-    val opprettetDato: ZonedDateTime
+    val opprettetDato: ZonedDateTime,
+    val opprettetAv: EndretAv
 ) {
     fun tilArbeidssokerRegistrertEntity() = ArbeidssokerRegistrertEntity(
         null,
@@ -19,6 +20,7 @@ data class ArbeidssokerRegistrert(
         besvarelse,
         null,
         opprettetDato.toLocalDateTime(),
-        EndretAv.SYSTEM
+        EndretAv.SYSTEM,
+        opprettetAv
     )
 }

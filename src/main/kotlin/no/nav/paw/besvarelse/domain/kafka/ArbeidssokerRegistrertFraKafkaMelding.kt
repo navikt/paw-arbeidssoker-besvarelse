@@ -8,6 +8,7 @@ import no.nav.paw.besvarelse.domain.besvarelse.AndreForholdSvar
 import no.nav.paw.besvarelse.domain.besvarelse.Besvarelse
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjonSvar
+import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import no.nav.paw.besvarelse.domain.besvarelse.FremtidigSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.FremtidigSituasjonSvar
 import no.nav.paw.besvarelse.domain.besvarelse.HelseHinder
@@ -29,14 +30,16 @@ data class ArbeidssokerRegistrertFraKafkaMelding(
     val aktorId: AktorId,
     val registreringsId: Int,
     val besvarelse: BesvarelseFraKafkaMelding,
-    val opprettetDato: ZonedDateTime
+    val opprettetDato: ZonedDateTime,
+    val opprettetAv: EndretAv = EndretAv.BRUKER // TODO: Endre til å hentes fra kafka-melding
 ) {
     fun tilArbeidssokerRegistrert() = ArbeidssokerRegistrert(
         foedselsnummer,
         aktorId,
         registreringsId,
         besvarelse.tilBesvarelse(),
-        opprettetDato
+        opprettetDato,
+        opprettetAv
     )
 }
 

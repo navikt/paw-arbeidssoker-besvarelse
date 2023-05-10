@@ -14,6 +14,7 @@ import no.nav.paw.besvarelse.domain.besvarelse.AndreForholdSvar
 import no.nav.paw.besvarelse.domain.besvarelse.Besvarelse
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjonSvar
+import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import no.nav.paw.besvarelse.domain.besvarelse.HelseHinder
 import no.nav.paw.besvarelse.domain.besvarelse.HelseHinderSvar
 import no.nav.paw.besvarelse.domain.besvarelse.SisteStilling
@@ -61,7 +62,8 @@ data class UserData(
     @JsonProperty("jobbhistorikk") val sisteStilling: SisteStillingSvar,
     @JsonProperty("har_helseutfordringer") val helseHinder: HelseHinderSvar,
     @JsonProperty("tekster_for_besvarelse") val teksterForBesvarelse: String,
-    @JsonProperty("foedselsnummer") val foedselsnummer: String = "12345678910"
+    @JsonProperty("foedselsnummer") val foedselsnummer: String = "12345678910",
+    @JsonProperty("opprettet_av") val opprettetAv: EndretAv
 ) {
     fun tilArbeidssokerRegistrert(): ArbeidssokerRegistrert {
         // val mapper = ObjectMapper().findAndRegisterModules()
@@ -82,7 +84,8 @@ data class UserData(
                 null, // Gjelder kun sykemeldtregistrering?
                 null // Gjelder kun sykemeldtregistrering?
             ),
-            opprettetDato.atZone(ZoneId.of("Europe/Oslo"))
+            opprettetDato.atZone(ZoneId.of("Europe/Oslo")),
+            opprettetAv
         )
     }
 }
@@ -103,6 +106,6 @@ fun main() {
 
     // foedselsnummer, aktor_id, registrerings_id, besvarelse, endret_av
     userDataList.forEach {
-        println("${it.foedselsnummer.foedselsnummer}\t${it.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(it.besvarelse)}\t${it.opprettetDato.toLocalDateTime()}")
+        println("${it.foedselsnummer.foedselsnummer}\t${it.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(it.besvarelse)}\t${it.opprettetDato.toLocalDateTime()}\t${it.opprettetAv}")
     }
 }

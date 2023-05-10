@@ -14,6 +14,7 @@ data class ArbeidssokerRegistrertEntity(
     val besvarelse: Besvarelse,
     val opprettet: LocalDateTime? = null,
     val registreringOpprettet: LocalDateTime? = null,
+    val opprettetAv: EndretAv,
     val endretAv: EndretAv
 ) {
     fun tilArbeidssokerRegistrertResponse() = ArbeidssokerRegistrertResponse(
@@ -21,7 +22,8 @@ data class ArbeidssokerRegistrertEntity(
         besvarelse,
         endretAv,
         opprettet,
-        registreringOpprettet
+        registreringOpprettet,
+        opprettetAv
     )
 
     fun tilArbeidssokerBesvarelseEndretEvent() = ArbeidssokerBesvarelseEndretEvent(

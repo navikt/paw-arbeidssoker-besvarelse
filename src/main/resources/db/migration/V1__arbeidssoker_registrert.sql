@@ -6,6 +6,7 @@ CREATE TABLE arbeidssoker_registrert (
   besvarelse JSONB NOT NULL,
   opprettet TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   registrering_opprettet TIMESTAMP(6) NOT NULL,
+  opprettet_av VARCHAR(255) NOT NULL,
   endret_av VARCHAR(255) NOT NULL
 );
 
