@@ -22,11 +22,25 @@ https://arbeidssoker.besvarelse.intern.dev.nav.no/docs
 
 ## Dev oppsett
 
-https://debug-dings.intern.dev.nav.no/debugger
+1) Opprett dolly bruker
 
-Sett audience til `dev-gcp:paw:paw-arbeidssoker-besvarelse`
+Gå til https://dolly.ekstern.dev.nav.no/testnorge og imporer en bruker fra test-norge
 
-Bruk `access_token` i "Token Response" til å gjøre forespørsler mot https://arbeidssoker-besvarelse.intern.dev.nav.no
+2) Opprett dolly bruker som arbeidssøker
+
+Gå til https://arbeid.intern.dev.nav.no/arbeid/registrering og registrer bruker.
+
+Vent litt. 
+
+3) Logg inn i debug-dings med test-id med din nye dolly bruker
+
+Gå til https://debug-dings.intern.dev.nav.no/debugger
+
+Logg inn. Sett audience til `dev-gcp:paw:paw-arbeidssoker-besvarelse`
+
+4) Gjør kall mot API-et
+
+Bruk `access_token` i "Token Response" (fra steg 3) til å gjøre forespørsler mot https://arbeidssoker-besvarelse.intern.dev.nav.no
 
 Eksempel:
 
