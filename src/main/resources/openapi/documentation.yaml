@@ -17,7 +17,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ArbeidssokerRegistrertResponse"
   /api/v1/besvarelse/situasjon:
-    patch:
+    post:
       description: ""
       requestBody:
         content:
@@ -25,8 +25,8 @@ paths:
             schema:
               $ref: "#/components/schemas/EndreSituasjonRequest"
       responses:
-        "200":
-          description: "OK"
+        "201":
+          description: "Created"
           content:
             '*/*':
               schema:
@@ -217,19 +217,6 @@ components:
         endret:
           type: "string"
           format: "date-time"
-    DinSituasjonSvar:
-      type: "string"
-      enum:
-        - "MISTET_JOBBEN"
-        - "ALDRI_HATT_JOBB"
-        - "HAR_SAGT_OPP"
-        - "VIL_BYTTE_JOBB"
-        - "ER_PERMITTERT"
-        - "USIKKER_JOBBSITUASJON"
-        - "JOBB_OVER_2_AAR"
-        - "VIL_FORTSETTE_I_JOBB"
-        - "AKKURAT_FULLFORT_UTDANNING"
-        - "DELTIDSJOBB_VIL_MER"
     DinSituasjon:
       type: "object"
       properties:
@@ -341,13 +328,19 @@ components:
           format: "int32"
         besvarelse:
           $ref: "#/components/schemas/Besvarelse"
-        opprettet:
+        endretAv:
           type: "string"
-          format: "date-time"
+          enum:
+          - "BRUKER"
+          - "VEILEDER"
+          - "SYSTEM"
         endret:
           type: "string"
           format: "date-time"
-        endretAv:
+        registreringOpprettet:
+          type: "string"
+          format: "date-time"
+        opprettetAv:
           type: "string"
           enum:
           - "BRUKER"
@@ -357,4 +350,4 @@ components:
       type: "object"
       properties:
         dinSituasjon:
-          $ref: "#/components/schemas/DinSituasjonSvar"
+          $ref: "#/components/schemas/DinSituasjon"

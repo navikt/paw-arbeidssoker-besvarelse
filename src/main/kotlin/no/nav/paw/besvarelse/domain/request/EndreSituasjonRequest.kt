@@ -4,11 +4,7 @@ import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjonSvar
 import no.nav.paw.besvarelse.domain.besvarelse.GjelderFra
 import no.nav.paw.besvarelse.domain.besvarelse.GjelderTil
 
-data class EndreBesvarelseRequest(
-    val besvarelse: Besvarelse
-)
-
-data class Besvarelse(
+data class EndreSituasjonRequest(
     val dinSituasjon: DinSituasjon
 )
 data class DinSituasjon(

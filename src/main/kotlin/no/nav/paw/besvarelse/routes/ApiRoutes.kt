@@ -10,7 +10,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
-import no.nav.paw.besvarelse.domain.request.EndreBesvarelseRequest
+import no.nav.paw.besvarelse.domain.request.EndreSituasjonRequest
 import no.nav.paw.besvarelse.services.ArbeidssokerRegistrertService
 import no.nav.paw.besvarelse.utils.getPidClaim
 import no.nav.paw.besvarelse.utils.logger
@@ -34,7 +34,7 @@ fun Route.apiRoutes() {
             post("/besvarelse/situasjon") {
                 logger.info("Endrer situasjon i besvarelse til bruker")
 
-                val endretSituasjon = call.receive<EndreBesvarelseRequest>()
+                val endretSituasjon = call.receive<EndreSituasjonRequest>()
                 val foedselsnummer = call.getPidClaim()
 
                 val arbeidssokerRegistrertResponse = arbeidssokerRegistrertService.endreSituasjon(

@@ -11,7 +11,7 @@ import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrertEntity
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
-import no.nav.paw.besvarelse.domain.request.EndreBesvarelseRequest
+import no.nav.paw.besvarelse.domain.request.EndreSituasjonRequest
 import no.nav.paw.besvarelse.plugins.StatusException
 import no.nav.paw.besvarelse.utils.logger
 import org.postgresql.util.PSQLException
@@ -68,13 +68,13 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun endreSituasjon(foedselsnummer: Foedselsnummer, endreBesvarelseRequest: EndreBesvarelseRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
+    fun endreSituasjon(foedselsnummer: Foedselsnummer, endreSituasjonRequest: EndreSituasjonRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
         logger.info("Endrer situasjon i besvarelsen i databasen")
 
         val arbeidssokerRegistrert = hentSiste(foedselsnummer)
             .copy(endretAv = endretAv)
 
-        if (arbeidssokerRegistrert.besvarelse.dinSituasjon?.verdi == endreBesvarelseRequest.besvarelse.dinSituasjon.verdi) {
+        if (arbeidssokerRegistrert.besvarelse.dinSituasjon?.verdi == endreSituasjonRequest.dinSituasjon.verdi) {
             logger.info("Forsøker å oppdatere 'dinSituasjon', men din situasjon er allerede endret")
             throw StatusException(HttpStatusCode.Conflict, "Situasjonen du forsøkte å endre er allerede satt")
         }
@@ -82,9 +82,9 @@ class ArbeidssokerRegistrertRepository(
         val endretBesvarelse = arbeidssokerRegistrert.besvarelse
             .copy(
                 dinSituasjon = DinSituasjon(
-                    verdi = endreBesvarelseRequest.besvarelse.dinSituasjon.verdi,
-                    gjelderFra = endreBesvarelseRequest.besvarelse.dinSituasjon.gjelderFra,
-                    gjelderTil = endreBesvarelseRequest.besvarelse.dinSituasjon.gjelderTil,
+                    verdi = endreSituasjonRequest.dinSituasjon.verdi,
+                    gjelderFra = endreSituasjonRequest.dinSituasjon.gjelderFra,
+                    gjelderTil = endreSituasjonRequest.dinSituasjon.gjelderTil,
                     endretAv = endretAv,
                     endret = LocalDateTime.now()
                 )
