@@ -4,7 +4,7 @@ Hente og endre besvarelse for arbeidssøker
 
 ## Dokumentasjon
 
-https://arbeidssoker.besvarelse.intern.dev.nav.no/docs
+https://arbeidssoker-besvarelse.intern.dev.nav.no/docs
 
 ## Flydiagram
 
