@@ -31,7 +31,7 @@ data class ArbeidssokerRegistrertFraKafkaMelding(
     val registreringsId: Int,
     val besvarelse: BesvarelseFraKafkaMelding,
     val opprettetDato: ZonedDateTime,
-    val opprettetAv: EndretAv = EndretAv.BRUKER // TODO: Endre til å hentes fra kafka-melding
+    val opprettetAv: EndretAv = EndretAv.SYSTEM
 ) {
     fun tilArbeidssokerRegistrert() = ArbeidssokerRegistrert(
         foedselsnummer,
