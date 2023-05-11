@@ -20,7 +20,7 @@ data class ArbeidssokerRegistrert(
         besvarelse,
         null,
         opprettetDato.toLocalDateTime(),
-        EndretAv.SYSTEM,
-        opprettetAv
+        opprettetAv,
+        EndretAv.SYSTEM
     )
 }
