@@ -46,7 +46,7 @@ fun Route.veilederRoutes() {
                     )
                 ).getOrThrow()
 
-                val registrering = arbeidssokerRegistrertService.hentSiste(foedselsnummer)
+                val registrering = arbeidssokerRegistrertService.hentSiste(foedselsnummer.fnr)
                 call.respond(HttpStatusCode.OK, registrering)
             }
         }
