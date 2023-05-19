@@ -58,6 +58,10 @@ spec:
             namespace: paw
           - application: debug-dings
             namespace: plattformsikkerhet
+      outbound:
+        rules:
+          - application: poao-tilgang
+            namespace: poao
   gcp:
     sqlInstances:
       - type: POSTGRES_14

@@ -31,6 +31,12 @@ data class Config(
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
             requiredClaims = RequiredClaims("tokendings", arrayOf("acr=Level4"))
+        ),
+        AuthProvider(
+            name = "AAD",
+            discoveryUrl = dotenv["AZURE_APP_WELL_KNOWN_URL"],
+            acceptedAudience = listOf(dotenv["AZURE_APP_CLIENT_ID"]),
+            requiredClaims = RequiredClaims("azure", arrayOf("sub"))
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
