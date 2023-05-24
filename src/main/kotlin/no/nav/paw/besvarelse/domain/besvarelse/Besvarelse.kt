@@ -1,5 +1,6 @@
 package no.nav.paw.besvarelse.domain.besvarelse
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class Besvarelse(
@@ -12,23 +13,7 @@ data class Besvarelse(
     val dinSituasjon: DinSituasjon? = null,
     val fremtidigSituasjon: FremtidigSituasjon? = null,
     val tilbakeIArbeid: TilbakeIArbeid? = null
-) {
-    fun sisteEndret(): LocalDateTime? {
-        val alleEndretDatoer = listOfNotNull(
-            utdanning?.endret,
-            utdanningBestatt?.endret,
-            utdanningGodkjent?.endret,
-            helseHinder?.endret,
-            andreForhold?.endret,
-            sisteStilling?.endret,
-            dinSituasjon?.endret,
-            fremtidigSituasjon?.endret,
-            tilbakeIArbeid?.endret
-        )
-
-        return alleEndretDatoer.maxOrNull()
-    }
-}
+)
 data class Utdanning(
     val verdi: UtdanningSvar? = null,
     val gjelderFra: GjelderFra = null,
@@ -79,10 +64,19 @@ data class SisteStilling(
 
 data class DinSituasjon(
     val verdi: DinSituasjonSvar? = null,
+    val tilleggsData: DinSituasjonTilleggsData? = null,
     val gjelderFra: GjelderFra = null,
     val gjelderTil: GjelderTil = null,
     val endretAv: EndretAv? = null,
     val endret: Endret? = null
+)
+
+data class DinSituasjonTilleggsData(
+    val forsteArbeidsdagDato: LocalDate? = null,
+    val sisteArbeidsdagDato: LocalDate? = null,
+    val oppsigelseDato: LocalDate? = null,
+    val gjelderFraDato: GjelderFra = null,
+    val permitteringsProsent: String? = null
 )
 
 data class FremtidigSituasjon(
@@ -101,8 +95,8 @@ data class TilbakeIArbeid(
     val endret: Endret? = null
 )
 
-typealias GjelderFra = LocalDateTime?
-typealias GjelderTil = LocalDateTime?
+typealias GjelderFra = LocalDate?
+typealias GjelderTil = LocalDate?
 typealias Endret = LocalDateTime
 
 enum class EndretAv { BRUKER, VEILEDER, SYSTEM }
