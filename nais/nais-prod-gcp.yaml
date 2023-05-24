@@ -59,5 +59,8 @@ spec:
   gcp:
     sqlInstances:
       - type: POSTGRES_14
+        tier: db-custom-1-3840
+        diskSize: 10
+        diskAutoresize: true
         databases:
           - name: arbeidssoker-registrert
