@@ -29,7 +29,7 @@ class ArbeidssokerRegistrertRepository(
             sessionOf(dataSource).use { session ->
                 val query =
                     queryOf(
-                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer = ? ORDER BY opprettet DESC LIMIT 1",
+                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer = ? ORDER BY endret_dato DESC LIMIT 1",
                         foedselsnummer.foedselsnummer
                     ).map { it.tilBesvarelseEntity() }.asSingle
                 return session.run(query)
@@ -48,14 +48,14 @@ class ArbeidssokerRegistrertRepository(
             sessionOf(dataSource, returnGeneratedKey = true).use { session ->
                 val query =
                     queryOf(
-                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, registrering_opprettet, opprettet_av, endret_av)
+                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, registrerings_dato, opprettet_av, endret_av)
                             |VALUES (?, ?, ?::int, ?::jsonb, ?, ?, ?)
                         """.trimMargin(),
                         arbeidssokerRegistrertEntity.foedselsnummer.foedselsnummer,
                         arbeidssokerRegistrertEntity.aktorId.aktorId,
                         arbeidssokerRegistrertEntity.registreringsId,
                         objectMapper.writeValueAsString(arbeidssokerRegistrertEntity.besvarelse),
-                        arbeidssokerRegistrertEntity.registreringOpprettet,
+                        arbeidssokerRegistrertEntity.registreringsDato,
                         arbeidssokerRegistrertEntity.opprettetAv.toString(),
                         arbeidssokerRegistrertEntity.endretAv.toString()
                     ).asUpdateAndReturnGeneratedKey
@@ -79,10 +79,10 @@ class ArbeidssokerRegistrertRepository(
                 dinSituasjon = DinSituasjon(
                     verdi = endreSituasjonRequest.dinSituasjon.verdi,
                     tilleggsData = endreSituasjonRequest.dinSituasjon.tilleggsData,
-                    gjelderFra = endreSituasjonRequest.dinSituasjon.gjelderFra,
-                    gjelderTil = endreSituasjonRequest.dinSituasjon.gjelderTil,
+                    gjelderFraDato = endreSituasjonRequest.dinSituasjon.gjelderFraDato,
+                    gjelderTilDato = endreSituasjonRequest.dinSituasjon.gjelderTilDato,
                     endretAv = endretAv,
-                    endret = LocalDateTime.now()
+                    endretDato = LocalDateTime.now()
                 )
             )
 
@@ -98,8 +98,8 @@ class ArbeidssokerRegistrertRepository(
         AktorId(string("aktor_id")),
         int("registrerings_id"),
         objectMapper.readValue(string("besvarelse")),
-        localDateTime("opprettet"),
-        localDateTime("registrering_opprettet"),
+        localDateTime("endret_dato"),
+        localDateTime("registrerings_dato"),
         EndretAv.valueOf(string("opprettet_av")),
         EndretAv.valueOf(string("endret_av"))
     )

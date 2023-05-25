@@ -24,7 +24,7 @@ class ArbeidssokerRegistrertService(
         endretAv: EndretAv
     ): ArbeidssokerRegistrertResponse =
         arbeidssokerRegistrertRepository.endreSituasjon(foedselsnummer, endreSituasjonRequest, endretAv).also {
-            // TODO: Må endre ArbeidssokerBesvarelseEndretEvent.avsc til å samsvare med ny struktur for svar
+            // TODO: Må aktiveres når modell for besvarelseEndret er satt
             // arbeidssokerBesvarelseEndretProducer.publish(it.tilArbeidssokerBesvarelseEndretEvent())
         }.tilArbeidssokerRegistrertResponse()
 }

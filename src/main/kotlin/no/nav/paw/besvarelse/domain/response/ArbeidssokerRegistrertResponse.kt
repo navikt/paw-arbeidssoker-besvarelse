@@ -8,7 +8,7 @@ data class ArbeidssokerRegistrertResponse(
     val registreringsId: Int,
     val besvarelse: Besvarelse,
     val endretAv: EndretAv,
-    val endret: LocalDateTime?,
-    val registreringOpprettet: LocalDateTime?,
+    val endretDato: LocalDateTime?,
+    val registreringsDato: LocalDateTime?,
     val opprettetAv: EndretAv
 )
