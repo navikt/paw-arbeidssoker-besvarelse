@@ -81,19 +81,19 @@ components:
           - "HOYERE_UTDANNING_1_TIL_4"
           - "HOYERE_UTDANNING_5_ELLER_MER"
           - "INGEN_SVAR"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     UtdanningBestatt:
@@ -105,19 +105,19 @@ components:
           - "JA"
           - "NEI"
           - "INGEN_SVAR"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     UtdanningGodkjent:
@@ -130,19 +130,19 @@ components:
           - "NEI"
           - "VET_IKKE"
           - "INGEN_SVAR"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     HelseHinder:
@@ -154,19 +154,19 @@ components:
           - "JA"
           - "NEI"
           - "INGEN_SVAR"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     AndreForhold:
@@ -178,19 +178,19 @@ components:
           - "JA"
           - "NEI"
           - "INGEN_SVAR"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     SisteStilling:
@@ -202,21 +202,38 @@ components:
           - "HAR_HATT_JOBB"
           - "HAR_IKKE_HATT_JOBB"
           - "INGEN_SVAR"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
+    DinSituasjonTilleggsData:
+      type: "object"
+      properties:
+        forsteArbeidsdagDato:
+          type: "string"
+          format: "date"
+        sisteArbeidsdagDato:
+          type: "string"
+          format: "date"
+        oppsigelseDato:
+          type: "string"
+          format: "date"
+        gjelderFraDato:
+          type: "string"
+          format: "date"
+        permitteringsProsent:
+          type: "string"
     DinSituasjon:
       type: "object"
       properties:
@@ -234,19 +251,21 @@ components:
           - "AKKURAT_FULLFORT_UTDANNING"
           - "DELTIDSJOBB_VIL_MER"
           - "KONKURS"
-        gjelderFra:
+        tilleggsData:
+          $ref: "#/components/schemas/DinSituasjonTilleggsData"
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     FremtidigSituasjon:
@@ -260,19 +279,19 @@ components:
           - "NY_ARBEIDSGIVER"
           - "USIKKER"
           - "INGEN_PASSER"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     TilbakeIArbeid:
@@ -285,19 +304,19 @@ components:
           - "JA_REDUSERT_STILLING"
           - "USIKKER"
           - "NEI"
-        gjelderFra:
+        gjelderFraDato:
           type: "string"
-          format: "date-time"
-        gjelderTil:
+          format: "date"
+        gjelderTilDato:
           type: "string"
-          format: "date-time"
+          format: "date"
         endretAv:
           type: "string"
           enum:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
     Besvarelse:
@@ -335,10 +354,10 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endret:
+        endretDato:
           type: "string"
           format: "date-time"
-        registreringOpprettet:
+        registreringsDato:
           type: "string"
           format: "date-time"
         opprettetAv:
@@ -351,4 +370,27 @@ components:
       type: "object"
       properties:
         dinSituasjon:
-          $ref: "#/components/schemas/DinSituasjon"
+          type: "object"
+          properties:
+            verdi:
+              type: "string"
+              enum:
+                - "MISTET_JOBBEN"
+                - "ALDRI_HATT_JOBB"
+                - "HAR_SAGT_OPP"
+                - "VIL_BYTTE_JOBB"
+                - "ER_PERMITTERT"
+                - "USIKKER_JOBBSITUASJON"
+                - "JOBB_OVER_2_AAR"
+                - "VIL_FORTSETTE_I_JOBB"
+                - "AKKURAT_FULLFORT_UTDANNING"
+                - "DELTIDSJOBB_VIL_MER"
+                - "KONKURS"
+            tilleggsData:
+              $ref: "#/components/schemas/DinSituasjonTilleggsData"
+            gjelderFraDato:
+              type: "string"
+              format: "date"
+            gjelderTilDato:
+              type: "string"
+              format: "date"
