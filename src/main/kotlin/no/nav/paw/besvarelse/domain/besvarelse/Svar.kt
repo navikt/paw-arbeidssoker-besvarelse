@@ -41,7 +41,14 @@ enum class DinSituasjonSvar {
     VIL_FORTSETTE_I_JOBB,
     AKKURAT_FULLFORT_UTDANNING,
     DELTIDSJOBB_VIL_MER,
-    KONKURS
+    OPPSIGELSE,
+    ENDRET_PERMITTERINGSPROSENT,
+    TILBAKE_TIL_JOBB,
+    NY_JOBB,
+    MIDLERTIDIG_JOBB,
+    KONKURS,
+    UAVKLART,
+    ANNET
 }
 
 enum class FremtidigSituasjonSvar {
