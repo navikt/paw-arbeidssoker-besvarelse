@@ -10,7 +10,7 @@ data class EndreSituasjonRequest(
 )
 data class DinSituasjon(
     val verdi: DinSituasjonSvar,
-    val tilleggsData: DinSituasjonTilleggsData,
-    val gjelderFraDato: GjelderFraDato,
-    val gjelderTilDato: GjelderTilDato
+    val tilleggsData: DinSituasjonTilleggsData? = null,
+    val gjelderFraDato: GjelderFraDato = null,
+    val gjelderTilDato: GjelderTilDato = null
 )
