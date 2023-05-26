@@ -40,7 +40,8 @@ enum class DinSituasjonSvar {
     JOBB_OVER_2_AAR,
     VIL_FORTSETTE_I_JOBB,
     AKKURAT_FULLFORT_UTDANNING,
-    DELTIDSJOBB_VIL_MER
+    DELTIDSJOBB_VIL_MER,
+    KONKURS
 }
 
 enum class FremtidigSituasjonSvar {

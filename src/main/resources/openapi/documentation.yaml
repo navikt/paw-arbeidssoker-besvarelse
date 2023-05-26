@@ -233,6 +233,7 @@ components:
           - "VIL_FORTSETTE_I_JOBB"
           - "AKKURAT_FULLFORT_UTDANNING"
           - "DELTIDSJOBB_VIL_MER"
+          - "KONKURS"
         gjelderFra:
           type: "string"
           format: "date-time"
