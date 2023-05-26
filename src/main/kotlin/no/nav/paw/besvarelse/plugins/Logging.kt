@@ -15,7 +15,7 @@ fun Application.configureLogging() {
         verify { it.isNotEmpty() }
     }
     install(CallLogging) {
-        callIdMdc("x_correlationId")
+        callIdMdc("x_callId")
         disableDefaultColors()
         filter { !it.request.path().startsWith("/internal") }
     }
