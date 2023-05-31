@@ -41,7 +41,7 @@ data class Config(
         "${dotenv["KAFKA_SCHEMA_REGISTRY_USER"]}:${dotenv["KAFKA_SCHEMA_REGISTRY_PASSWORD"]}",
         KafkaProducers(
             KafkaProducer(
-                dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_ENDRET_BESVARELSE_TOPIC"]
+                dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_BESVARELSE_TOPIC"]
             )
         ),
         KafkaConsumers(
@@ -81,7 +81,7 @@ data class KafkaConsumer(
 )
 
 data class KafkaProducers(
-    val arbeidssokerEndretBesvarelse: KafkaProducer
+    val arbeidssokerBesvarelse: KafkaProducer
 )
 
 data class KafkaProducer(
