@@ -1,7 +1,7 @@
 package no.nav.paw.besvarelse.kafka.producer
 
 import no.nav.common.kafka.producer.KafkaProducerClient
-import no.nav.paw.besvarelse.ArbeidssokerBesvarelseEndretEvent
+import no.nav.paw.besvarelse.ArbeidssokerBesvarelseEvent
 import no.nav.paw.besvarelse.utils.CallId.callId
 import no.nav.paw.besvarelse.utils.logger
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -10,11 +10,11 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 
 class ArbeidssokerBesvarelseEndretProducer(
-    private val kafkaProducerClient: KafkaProducerClient<String, ArbeidssokerBesvarelseEndretEvent>,
+    private val kafkaProducerClient: KafkaProducerClient<String, ArbeidssokerBesvarelseEvent>,
     private val topic: String
 ) {
-    fun publish(value: ArbeidssokerBesvarelseEndretEvent) {
-        val record: ProducerRecord<String, ArbeidssokerBesvarelseEndretEvent> = ProducerRecord(
+    fun publish(value: ArbeidssokerBesvarelseEvent) {
+        val record: ProducerRecord<String, ArbeidssokerBesvarelseEvent> = ProducerRecord(
             topic,
             null,
             UUID.randomUUID().toString(),

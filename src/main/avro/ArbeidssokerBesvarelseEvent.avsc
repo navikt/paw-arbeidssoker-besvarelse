@@ -20,6 +20,62 @@
       "name": "aktorId"
     },
     {
+      "name": "endretDato",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "local-timestamp-millis"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "registreringsDato",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "local-timestamp-millis"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "opprettetAv",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "OpprettetAv",
+          "symbols": [
+            "BRUKER",
+            "VEILEDER",
+            "SYSTEM"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "endretAv",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "EndretAv",
+          "symbols": [
+            "BRUKER",
+            "VEILEDER",
+            "SYSTEM"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "boolean",
+      "name": "endret"
+    },
+    {
       "name": "besvarelse",
       "type": [
         "null",

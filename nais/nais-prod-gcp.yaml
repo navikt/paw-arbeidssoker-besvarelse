@@ -34,10 +34,10 @@ spec:
       value: paw.arbeidssoker-registrert-v2
     - name: KAFKA_CONSUMER_GROUP_ID
       value: arbeidssoker-besvarelse-consumer-v1
-    - name: KAFKA_PRODUCER_ARBEIDSSOKER_ENDRET_BESVARELSE_TOPIC
-      value: paw.arbeidssoker-endret-besvarelse-v1
+    - name: KAFKA_PRODUCER_ARBEIDSSOKER_BESVARELSE_TOPIC
+      value: paw.arbeidssoker-besvarelse-v1
     - name: KAFKA_PRODUCER_ID
-      value: arbeidssoker-endret-besvarelse-producer-v1
+      value: arbeidssoker-besvarelse-producer-v1
     - name: UNLEASH_URL
       value: https://unleash.nais.io/api/
   resources:
