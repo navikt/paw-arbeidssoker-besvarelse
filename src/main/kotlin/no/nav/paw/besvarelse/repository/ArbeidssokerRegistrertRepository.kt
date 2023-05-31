@@ -41,15 +41,15 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun opprett(arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity): Long {
+    fun opprett(arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity, endret: Boolean = false): ArbeidssokerRegistrertEntity {
         logger.info("Oppretter ny besvarelse i database")
 
         try {
             sessionOf(dataSource, returnGeneratedKey = true).use { session ->
                 val query =
                     queryOf(
-                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, registrerings_dato, opprettet_av, endret_av)
-                            |VALUES (?, ?, ?::int, ?::jsonb, ?, ?, ?)
+                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, registrerings_dato, opprettet_av, endret_av, endret)
+                            |VALUES (?, ?, ?::int, ?::jsonb, ?, ?, ?, ?)
                         """.trimMargin(),
                         arbeidssokerRegistrertEntity.foedselsnummer.foedselsnummer,
                         arbeidssokerRegistrertEntity.aktorId.aktorId,
@@ -57,10 +57,12 @@ class ArbeidssokerRegistrertRepository(
                         objectMapper.writeValueAsString(arbeidssokerRegistrertEntity.besvarelse),
                         arbeidssokerRegistrertEntity.registreringsDato,
                         arbeidssokerRegistrertEntity.opprettetAv.toString(),
-                        arbeidssokerRegistrertEntity.endretAv.toString()
+                        arbeidssokerRegistrertEntity.endretAv.toString(),
+                        endret
                     ).asUpdateAndReturnGeneratedKey
-                return session.run(query)
+                session.run(query)
                     ?: throw StatusException(HttpStatusCode.InternalServerError, "Ukjent feil ved oppretting i databasen")
+                return hentSiste(arbeidssokerRegistrertEntity.foedselsnummer)
             }
         } catch (error: PSQLException) {
             logger.error("Feil i databaseoperasjon ved oppretting av besvarelse ${error.message}", error)
@@ -87,9 +89,7 @@ class ArbeidssokerRegistrertRepository(
             )
 
         val arbeidssokerRegistrertEndret = arbeidssokerRegistrert.copy(besvarelse = endretBesvarelse)
-        opprett(arbeidssokerRegistrertEndret)
-
-        return hentSiste(foedselsnummer)
+        return opprett(arbeidssokerRegistrertEndret, true)
     }
 
     private fun Row.tilBesvarelseEntity() = ArbeidssokerRegistrertEntity(
@@ -101,7 +101,8 @@ class ArbeidssokerRegistrertRepository(
         localDateTime("endret_dato"),
         localDateTime("registrerings_dato"),
         EndretAv.valueOf(string("opprettet_av")),
-        EndretAv.valueOf(string("endret_av"))
+        EndretAv.valueOf(string("endret_av")),
+        boolean("endret")
     )
 
     companion object {

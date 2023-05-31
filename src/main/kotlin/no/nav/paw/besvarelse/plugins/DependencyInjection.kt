@@ -23,7 +23,7 @@ import no.nav.paw.besvarelse.config.Config
 import no.nav.paw.besvarelse.config.NaisEnv
 import no.nav.paw.besvarelse.config.createDatabaseConfig
 import no.nav.paw.besvarelse.kafka.consumer.ArbeidssokerRegistreringConsumer
-import no.nav.paw.besvarelse.kafka.producer.ArbeidssokerBesvarelseEndretProducer
+import no.nav.paw.besvarelse.kafka.producer.ArbeidssokerBesvarelseProducer
 import no.nav.paw.besvarelse.repository.ArbeidssokerRegistrertRepository
 import no.nav.paw.besvarelse.services.ArbeidssokerRegistrertService
 import org.apache.kafka.clients.consumer.KafkaConsumer
@@ -123,7 +123,7 @@ fun Application.configureDependencyInjection(config: Config) {
                         get()
                     )
                 }
-                single { ArbeidssokerBesvarelseEndretProducer(get(), config.kafka.producers.arbeidssokerEndretBesvarelse.topic) }
+                single { ArbeidssokerBesvarelseProducer(get(), config.kafka.producers.arbeidssokerBesvarelse.topic) }
                 single { ArbeidssokerRegistrertRepository(get(), get()) }
                 single { ArbeidssokerRegistrertService(get(), get()) }
             }

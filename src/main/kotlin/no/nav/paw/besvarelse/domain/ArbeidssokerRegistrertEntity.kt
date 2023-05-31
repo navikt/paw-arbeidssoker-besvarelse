@@ -2,12 +2,13 @@ package no.nav.paw.besvarelse.domain
 
 import no.nav.paw.besvarelse.AndreForhold
 import no.nav.paw.besvarelse.AndreForholdSvar
-import no.nav.paw.besvarelse.ArbeidssokerBesvarelseEndretEvent
+import no.nav.paw.besvarelse.ArbeidssokerBesvarelseEvent
 import no.nav.paw.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.DinSituasjonSvar
 import no.nav.paw.besvarelse.DinSituasjonTilleggsData
 import no.nav.paw.besvarelse.HelseHinder
 import no.nav.paw.besvarelse.HelseHinderSvar
+import no.nav.paw.besvarelse.OpprettetAv
 import no.nav.paw.besvarelse.SisteStilling
 import no.nav.paw.besvarelse.SisteStillingSvar
 import no.nav.paw.besvarelse.Utdanning
@@ -30,7 +31,8 @@ data class ArbeidssokerRegistrertEntity(
     val endretDato: LocalDateTime? = null,
     val registreringsDato: LocalDateTime? = null,
     val opprettetAv: EndretAv,
-    val endretAv: EndretAv
+    val endretAv: EndretAv,
+    val endret: Boolean = false
 ) {
     fun tilArbeidssokerRegistrertResponse() = ArbeidssokerRegistrertResponse(
         registreringsId,
@@ -41,11 +43,16 @@ data class ArbeidssokerRegistrertEntity(
         opprettetAv
     )
 
-    fun tilArbeidssokerBesvarelseEndretEvent() = ArbeidssokerBesvarelseEndretEvent(
+    fun tilArbeidssokerBesvarelseEvent() = ArbeidssokerBesvarelseEvent(
         id,
         registreringsId,
         foedselsnummer.foedselsnummer,
         aktorId.aktorId,
+        endretDato,
+        registreringsDato,
+        OpprettetAv.valueOf(opprettetAv.toString()),
+        no.nav.paw.besvarelse.EndretAv.valueOf(endretAv.toString()),
+        endret,
         no.nav.paw.besvarelse.Besvarelse(
             Utdanning(
                 besvarelse.utdanning?.endretDato,
