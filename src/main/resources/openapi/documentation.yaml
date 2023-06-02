@@ -93,7 +93,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     UtdanningBestatt:
@@ -117,7 +117,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     UtdanningGodkjent:
@@ -142,7 +142,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     HelseHinder:
@@ -166,7 +166,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     AndreForhold:
@@ -190,7 +190,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     SisteStilling:
@@ -214,7 +214,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     DinSituasjonTilleggsData:
@@ -272,7 +272,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     FremtidigSituasjon:
@@ -298,7 +298,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     TilbakeIArbeid:
@@ -323,7 +323,7 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
     Besvarelse:
@@ -361,10 +361,10 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
-        endretDato:
+        endretTidspunkt:
           type: "string"
           format: "date-time"
-        registreringsDato:
+        registreringsTidspunkt:
           type: "string"
           format: "date-time"
         opprettetAv:
@@ -373,6 +373,8 @@ components:
           - "BRUKER"
           - "VEILEDER"
           - "SYSTEM"
+        erBesvarelsenEndret:
+          type: "boolean"
     EndreSituasjonRequest:
       type: "object"
       properties:

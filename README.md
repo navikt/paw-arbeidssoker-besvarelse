@@ -135,10 +135,10 @@ docker exec -it paw-arbeidssoker-besvarelse_kafka_1 /usr/bin/kafka-console-produ
 
 ### Consumer
 
-Consumer meldinger fra `arbeidssoker-besvarelse-v1`
+Consumer meldinger fra `arbeidssoker-besvarelse-v2`
 
 ```sh
-docker exec -it paw-arbeidssoker-besvarelse_kafka_1 /usr/bin/kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-besvarelse-v1
+docker exec -it paw-arbeidssoker-besvarelse_kafka_1 /usr/bin/kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-besvarelse-v2
 ```
 
 ## Formatering
