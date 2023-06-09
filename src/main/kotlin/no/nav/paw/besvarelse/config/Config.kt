@@ -49,6 +49,10 @@ data class Config(
                 dotenv["KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC"]
             )
         )
+    ),
+    val pdlClientConfig: ServiceClientConfig = ServiceClientConfig(
+        dotenv["PDL_URL"],
+        dotenv["PDL_SCOPE"]
     )
 )
 
@@ -99,6 +103,11 @@ data class AuthProvider(
     val acceptedAudience: List<String>,
     val cookieName: String? = null,
     val requiredClaims: RequiredClaims? = null
+)
+
+data class ServiceClientConfig(
+    val url: String,
+    val scope: String
 )
 
 enum class NaisEnv(val clusterName: String) {

@@ -2,6 +2,7 @@ package no.nav.paw.besvarelse.domain.kafka
 
 import no.nav.paw.besvarelse.domain.AktorId
 import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrert
+import no.nav.paw.besvarelse.domain.Bruker
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.AndreForhold
 import no.nav.paw.besvarelse.domain.besvarelse.AndreForholdSvar
@@ -34,8 +35,11 @@ data class ArbeidssokerRegistrertFraKafkaMelding(
     val opprettetAv: EndretAv = EndretAv.SYSTEM
 ) {
     fun tilArbeidssokerRegistrert() = ArbeidssokerRegistrert(
-        foedselsnummer,
-        aktorId,
+        Bruker(
+            foedselsnummer,
+            emptyList(),
+            aktorId
+        ),
         registreringsId,
         besvarelse.tilBesvarelse(),
         opprettetDato,

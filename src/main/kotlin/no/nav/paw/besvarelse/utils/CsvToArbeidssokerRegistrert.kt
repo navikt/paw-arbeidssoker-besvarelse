@@ -8,6 +8,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
 import no.nav.paw.besvarelse.domain.AktorId
 import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrert
+import no.nav.paw.besvarelse.domain.Bruker
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.AndreForhold
 import no.nav.paw.besvarelse.domain.besvarelse.AndreForholdSvar
@@ -70,8 +71,11 @@ data class UserData(
         // val besvarelse: List<TekstForSporsmal> = mapper.readValue(teksterForBesvarelse)
 
         return ArbeidssokerRegistrert(
-            Foedselsnummer(foedselsnummer),
-            AktorId(aktorId),
+            Bruker(
+                Foedselsnummer(foedselsnummer),
+                emptyList(),
+                AktorId(aktorId)
+            ),
             registreringsId,
             Besvarelse(
                 Utdanning(nuskodeMap[nusKode]),
@@ -106,6 +110,6 @@ fun main() {
 
     // foedselsnummer, aktor_id, registrerings_id, besvarelse, endret_av
     userDataList.forEach {
-        println("${it.foedselsnummer.foedselsnummer}\t${it.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(it.besvarelse)}\t${it.opprettetDato.toLocalDateTime()}\t${it.opprettetAv}")
+        println("${it.bruker.foedselsnummer.foedselsnummer}\t${it.bruker.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(it.besvarelse)}\t${it.opprettetDato.toLocalDateTime()}\t${it.opprettetAv}")
     }
 }

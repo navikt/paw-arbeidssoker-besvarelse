@@ -40,6 +40,10 @@ spec:
       value: arbeidssoker-besvarelse-producer-v1
     - name: UNLEASH_URL
       value: https://unleash.nais.io/api/
+    - name: PDL_URL
+      value: https://pdl-api.prod-fss-pub.nais.io/graphql
+    - name: PDL_SCOPE
+      value: api://prod-fss.pdl.pdl-api/.default
   resources:
     limits:
       cpu: '3'
@@ -56,6 +60,9 @@ spec:
       rules:
         - application: aia-backend
           namespace: paw
+    outbound:
+      external:
+        - host: pdl-api.prod-fss-pub.nais.io
   gcp:
     sqlInstances:
       - type: POSTGRES_14

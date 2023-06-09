@@ -23,10 +23,11 @@ val dotenv_kotlin_version: String by project
 val nocommons_version: String by project
 val mock_oauth2_server_version: String by project
 val avro_version: String by project
+val pdl_client_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
-    id("io.ktor.plugin") version "2.3.0"
+    id("io.ktor.plugin") version "2.3.1"
     id("org.jmailen.kotlinter") version "3.13.0"
     id("com.github.davidmc24.gradle.plugin.avro") version "1.7.0"
 }
@@ -103,9 +104,9 @@ dependencies {
     // NAV security
     implementation("no.nav.security:token-validation-ktor-v2:$token_support_version")
     implementation("no.nav.security:token-client-core:$token_support_version")
-    // Ktor
 
     // Annet
+    implementation("no.nav.paw:pdl-client:$pdl_client_version")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:$jackson_version")
@@ -120,6 +121,8 @@ dependencies {
     implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
     implementation("no.bekk.bekkopen:nocommons:$nocommons_version")
     implementation("io.github.cdimascio:dotenv-kotlin:$dotenv_kotlin_version")
+
+    // Ktor
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-auth-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")

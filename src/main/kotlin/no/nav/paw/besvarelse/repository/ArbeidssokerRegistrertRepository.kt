@@ -8,6 +8,7 @@ import kotliquery.queryOf
 import kotliquery.sessionOf
 import no.nav.paw.besvarelse.domain.AktorId
 import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrertEntity
+import no.nav.paw.besvarelse.domain.Bruker
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
@@ -22,16 +23,16 @@ class ArbeidssokerRegistrertRepository(
     private val dataSource: DataSource,
     private val objectMapper: ObjectMapper
 ) {
-    fun hentSiste(foedselsnummer: Foedselsnummer): ArbeidssokerRegistrertEntity {
+    fun hentSiste(bruker: Bruker): ArbeidssokerRegistrertEntity {
         logger.info("Henter sist oppdaterte besvarelse fra database")
 
         try {
             sessionOf(dataSource).use { session ->
                 val query =
                     queryOf(
-                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer = ? ORDER BY endret_tidspunkt DESC LIMIT 1",
-                        foedselsnummer.foedselsnummer
+                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer IN (${bruker.alleFoedselsnummer.joinToString(separator = ",") { s -> "\'$s\'" }}) ORDER BY endret_tidspunkt DESC LIMIT 1"
                     ).map { it.tilBesvarelseEntity() }.asSingle
+
                 return session.run(query)
                     ?: throw StatusException(HttpStatusCode.NoContent)
             }
@@ -41,7 +42,7 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun opprett(arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity, endret: Boolean = false): ArbeidssokerRegistrertEntity {
+    fun opprett(bruker: Bruker, arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity, endret: Boolean = false): ArbeidssokerRegistrertEntity {
         logger.info("Oppretter ny besvarelse i database")
 
         try {
@@ -62,7 +63,7 @@ class ArbeidssokerRegistrertRepository(
                     ).asUpdateAndReturnGeneratedKey
                 session.run(query)
                     ?: throw StatusException(HttpStatusCode.InternalServerError, "Ukjent feil ved oppretting i databasen")
-                return hentSiste(arbeidssokerRegistrertEntity.foedselsnummer)
+                return hentSiste(bruker)
             }
         } catch (error: PSQLException) {
             logger.error("Feil i databaseoperasjon ved oppretting av besvarelse ${error.message}", error)
@@ -70,10 +71,10 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun endreSituasjon(foedselsnummer: Foedselsnummer, endreSituasjonRequest: EndreSituasjonRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
+    fun endreSituasjon(bruker: Bruker, endreSituasjonRequest: EndreSituasjonRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
         logger.info("Endrer situasjon i besvarelsen i databasen")
 
-        val arbeidssokerRegistrert = hentSiste(foedselsnummer)
+        val arbeidssokerRegistrert = hentSiste(bruker)
             .copy(endretAv = endretAv)
 
         val endretBesvarelse = arbeidssokerRegistrert.besvarelse
@@ -89,7 +90,7 @@ class ArbeidssokerRegistrertRepository(
             )
 
         val arbeidssokerRegistrertEndret = arbeidssokerRegistrert.copy(besvarelse = endretBesvarelse)
-        return opprett(arbeidssokerRegistrertEndret, true)
+        return opprett(bruker, arbeidssokerRegistrertEndret, true)
     }
 
     private fun Row.tilBesvarelseEntity() = ArbeidssokerRegistrertEntity(
