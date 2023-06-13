@@ -110,6 +110,14 @@ Vi benytter mock-ouath2-server til å utstede tokens på lokal maskin. Følgende
 { "acr": "Level3", "pid": "18908396568" }
 ```
 
+For veileder:
+```json
+{
+  "sub": "989f736f-14db-45dc-b8d1-94d621dbf2bb",
+  "NAVident": "test"
+}
+```
+
 6. Trykk Sign in
 7. Kopier verdien for access_token og benytt denne som Bearer i Authorization-header
 

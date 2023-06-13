@@ -26,8 +26,11 @@ import no.nav.paw.besvarelse.kafka.consumer.ArbeidssokerRegistreringConsumer
 import no.nav.paw.besvarelse.kafka.producer.ArbeidssokerBesvarelseProducer
 import no.nav.paw.besvarelse.repository.ArbeidssokerRegistrertRepository
 import no.nav.paw.besvarelse.services.ArbeidssokerRegistrertService
+import no.nav.paw.besvarelse.services.AutorisasjonService
 import no.nav.paw.besvarelse.token.TokenService
 import no.nav.paw.pdl.PdlClient
+import no.nav.poao_tilgang.client.PoaoTilgangCachedClient
+import no.nav.poao_tilgang.client.PoaoTilgangHttpClient
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
@@ -113,6 +116,17 @@ fun Application.configureDependencyInjection(config: Config) {
                         listOf(ByClusterStrategy())
                     )
                 }
+
+                single {
+                    PoaoTilgangCachedClient(
+                        PoaoTilgangHttpClient(
+                            config.poaoTilgangClient.url,
+                            { TokenService().createMachineToMachineToken(config.poaoTilgangClient.scope) }
+                        )
+                    )
+                }
+
+                single { AutorisasjonService(get()) }
 
                 single { PdlClient(config.pdlClientConfig.url, "OPP", get()) { TokenService().createMachineToMachineToken(config.pdlClientConfig.scope) } }
 

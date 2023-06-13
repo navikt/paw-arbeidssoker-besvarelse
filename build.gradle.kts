@@ -24,6 +24,7 @@ val nocommons_version: String by project
 val mock_oauth2_server_version: String by project
 val avro_version: String by project
 val pdl_client_version: String by project
+val poao_tilgang_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
@@ -107,6 +108,7 @@ dependencies {
 
     // Annet
     implementation("no.nav.paw:pdl-client:$pdl_client_version")
+    implementation("com.github.navikt.poao-tilgang:client:$poao_tilgang_version")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:$jackson_version")

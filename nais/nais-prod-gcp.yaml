@@ -44,6 +44,10 @@ spec:
       value: https://pdl-api.prod-fss-pub.nais.io/graphql
     - name: PDL_SCOPE
       value: api://prod-fss.pdl.pdl-api/.default
+    - name: POAO_TILGANG_CLIENT_URL
+      value: http://poao-tilgang.poao.svc.cluster.local
+    - name: POAO_TILGANG_CLIENT_SCOPE
+      value: api://prod-gcp.poao.poao-tilgang/.default
   resources:
     limits:
       cpu: '3'
@@ -61,6 +65,9 @@ spec:
         - application: aia-backend
           namespace: paw
     outbound:
+      rules:
+        - application: poao-tilgang
+          namespace: poao
       external:
         - host: pdl-api.prod-fss-pub.nais.io
   gcp:

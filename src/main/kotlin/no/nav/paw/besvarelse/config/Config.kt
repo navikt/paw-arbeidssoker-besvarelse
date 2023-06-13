@@ -31,6 +31,12 @@ data class Config(
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
             requiredClaims = RequiredClaims("tokendings", arrayOf("acr=Level4"))
+        ),
+        AuthProvider(
+            name = "azure",
+            discoveryUrl = dotenv["AZURE_APP_WELL_KNOWN_URL"],
+            acceptedAudience = listOf(dotenv["AZURE_APP_CLIENT_ID"]),
+            requiredClaims = RequiredClaims("azure", arrayOf("sub", "NAVident"))
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
@@ -53,6 +59,10 @@ data class Config(
     val pdlClientConfig: ServiceClientConfig = ServiceClientConfig(
         dotenv["PDL_URL"],
         dotenv["PDL_SCOPE"]
+    ),
+    val poaoTilgangClient: ServiceClientConfig = ServiceClientConfig(
+        dotenv["POAO_TILGANG_CLIENT_URL"],
+        dotenv["POAO_TILGANG_CLIENT_SCOPE"]
     )
 )
 

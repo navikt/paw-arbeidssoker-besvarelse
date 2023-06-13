@@ -15,6 +15,7 @@ import no.nav.paw.besvarelse.plugins.configureSerialization
 import no.nav.paw.besvarelse.routes.apiRoutes
 import no.nav.paw.besvarelse.routes.internalRoutes
 import no.nav.paw.besvarelse.routes.swaggerRoutes
+import no.nav.paw.besvarelse.routes.veilederRoutes
 import org.koin.ktor.ext.inject
 import javax.sql.DataSource
 import kotlin.concurrent.thread
@@ -49,5 +50,6 @@ fun Application.module() {
         internalRoutes()
         swaggerRoutes()
         apiRoutes()
+        veilederRoutes()
     }
 }
