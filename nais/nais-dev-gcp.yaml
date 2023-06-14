@@ -66,7 +66,7 @@ spec:
             namespace: paw
           - application: debug-dings
             namespace: plattformsikkerhet
-          - application: wonderwalled-azure
+          - application: azure-token-generator
             namespace: aura
             cluster: dev-gcp
       outbound:
