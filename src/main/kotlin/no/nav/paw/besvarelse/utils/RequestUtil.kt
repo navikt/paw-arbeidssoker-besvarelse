@@ -22,9 +22,9 @@ fun ApplicationCall.getPidClaim(): Foedselsnummer =
         ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'pid'-claim i token fra issuer")
 
 fun ApplicationCall.getNavAnsattAzureId(): UUID =
-    getClaim("azure", "sub")
+    getClaim("azure", "oid")
         ?.let { UUID.fromString(it) }
-        ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'sub'-claim i token fra issuer")
+        ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'oid'-claim i token fra issuer")
 
 fun ApplicationCall.getNAVident(): String =
     getClaim("azure", "NAVident")

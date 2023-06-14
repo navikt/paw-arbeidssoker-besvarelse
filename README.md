@@ -113,7 +113,7 @@ Vi benytter mock-ouath2-server til å utstede tokens på lokal maskin. Følgende
 For veileder:
 ```json
 {
-  "sub": "989f736f-14db-45dc-b8d1-94d621dbf2bb",
+  "oid": "989f736f-14db-45dc-b8d1-94d621dbf2bb",
   "NAVident": "test"
 }
 ```
