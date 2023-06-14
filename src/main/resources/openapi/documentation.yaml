@@ -21,9 +21,10 @@ paths:
       description: ""
       requestBody:
         content:
-          application/json:
+          '*/*':
             schema:
               $ref: "#/components/schemas/EndreSituasjonRequest"
+        required: true
       responses:
         "201":
           description: "Created"
@@ -31,6 +32,59 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ArbeidssokerRegistrertResponse"
+  /api/v1/veileder/besvarelse:
+    post:
+      description: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/VeilederRequest"
+        required: true
+      responses:
+        "403":
+          description: "Forbidden"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "NAV-ansatt har ikke tilgang"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ArbeidssokerRegistrertResponse"
+  /api/v1/veileder/har-tilgang:
+    post:
+      description: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/VeilederRequest"
+        required: true
+      responses:
+        "403":
+          description: "Forbidden"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "NAV-ansatt har ikke tilgang"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "NAV-ansatt har tilgang"
   /internal/isAlive:
     get:
       description: ""
@@ -65,7 +119,9 @@ paths:
         in: "query"
         required: false
         schema:
-          type: "string"
+          type: "array"
+          items:
+            type: "string"
 components:
   schemas:
     Utdanning:
@@ -379,34 +435,9 @@ components:
       type: "object"
       properties:
         dinSituasjon:
-          type: "object"
-          properties:
-            verdi:
-              type: "string"
-              enum:
-                - "MISTET_JOBBEN"
-                - "ALDRI_HATT_JOBB"
-                - "HAR_SAGT_OPP"
-                - "VIL_BYTTE_JOBB"
-                - "ER_PERMITTERT"
-                - "USIKKER_JOBBSITUASJON"
-                - "JOBB_OVER_2_AAR"
-                - "VIL_FORTSETTE_I_JOBB"
-                - "AKKURAT_FULLFORT_UTDANNING"
-                - "DELTIDSJOBB_VIL_MER"
-                - "OPPSIGELSE"
-                - "ENDRET_PERMITTERINGSPROSENT"
-                - "TILBAKE_TIL_JOBB"
-                - "NY_JOBB"
-                - "MIDLERTIDIG_JOBB"
-                - "KONKURS"
-                - "UAVKLART"
-                - "ANNET"
-            tilleggsData:
-              $ref: "#/components/schemas/DinSituasjonTilleggsData"
-            gjelderFraDato:
-              type: "string"
-              format: "date"
-            gjelderTilDato:
-              type: "string"
-              format: "date"
+          $ref: "#/components/schemas/DinSituasjon"
+    VeilederRequest:
+      type: "object"
+      properties:
+        foedselsnummer:
+          type: "string"
