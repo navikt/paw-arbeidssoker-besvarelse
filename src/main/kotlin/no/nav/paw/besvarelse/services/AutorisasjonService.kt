@@ -2,6 +2,8 @@ package no.nav.paw.besvarelse.services
 
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.NavAnsatt
+import no.nav.paw.besvarelse.utils.auditLogMelding
+import no.nav.paw.besvarelse.utils.autitLogger
 import no.nav.paw.besvarelse.utils.logger
 import no.nav.poao_tilgang.client.NavAnsattTilgangTilEksternBrukerPolicyInput
 import no.nav.poao_tilgang.client.PoaoTilgangCachedClient
@@ -12,6 +14,13 @@ class AutorisasjonService(
 ) {
     fun verifiserVeilederTilgangTilBruker(navAnsatt: NavAnsatt, foedselsnummer: Foedselsnummer): Boolean {
         logger.info("Henter arbeidssøkerperioder for veileder: '${navAnsatt.ident}' bruker: $foedselsnummer")
+        autitLogger.info(
+            auditLogMelding(
+                foedselsnummer,
+                navAnsatt,
+                "Veileder ${navAnsatt.ident} forsøker å lese besvarelse til arbeidssøker=${foedselsnummer.foedselsnummer}"
+            )
+        )
 
         val harNavAnsattTilgang = poaoTilgangHttpClient.evaluatePolicy(
             NavAnsattTilgangTilEksternBrukerPolicyInput(
