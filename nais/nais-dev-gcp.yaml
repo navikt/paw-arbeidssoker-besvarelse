@@ -66,6 +66,9 @@ spec:
             namespace: paw
           - application: debug-dings
             namespace: plattformsikkerhet
+          - application: wonderwalled-azure
+            namespace: aura
+            cluster: dev-gcp
       outbound:
         rules:
           - application: poao-tilgang
