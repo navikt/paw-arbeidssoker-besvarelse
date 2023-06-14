@@ -28,4 +28,5 @@ fun ApplicationCall.getNavAnsattAzureId(): UUID =
 
 fun ApplicationCall.getNAVident(): String =
     getClaim("azure", "NAVident")
+        ?: getClaim("azure", "name")
         ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'NAVident'-claim i token fra issuer")
