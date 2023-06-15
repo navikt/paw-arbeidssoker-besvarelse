@@ -33,7 +33,7 @@ class AutorisasjonService(
 
         if (!harNavAnsattTilgang) {
             logger.warn(
-                "NAV-ansatt med ident: '${navAnsatt.ident}' har ikke tilgang til bruker"
+                "NAV-ansatt med ident: '${navAnsatt.ident}' har ikke tilgang til bruker (poao-tilgang)"
             )
         }
 

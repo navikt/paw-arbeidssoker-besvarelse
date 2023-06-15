@@ -26,6 +26,8 @@
         </then>
     </if>
 
+    <include resource="no/nav/common/audit_log/logback-naudit.xml"/>
+
     <logger name="org.apache.kafka" level="WARN" />
     <logger name="no.nav" level="INFO" />
 
