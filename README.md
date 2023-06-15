@@ -32,11 +32,19 @@ Gå til https://arbeid.intern.dev.nav.no/arbeid/registrering og registrer bruker
 
 Vent litt. 
 
-3) Logg inn i debug-dings med test-id med din nye dolly bruker
+3 a) For idporten.
+
+Logg inn i debug-dings med test-id med din nye dolly bruker
 
 Gå til https://debug-dings.intern.dev.nav.no/debugger
 
 Logg inn. Sett audience til `dev-gcp:paw:paw-arbeidssoker-besvarelse`
+
+3 b) For `/veileder` endepunkter.
+
+Logg inn med trygdeetatenbruker på https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:paw:paw-arbeidssoker-besvarelse
+
+Les mer: https://docs.nais.io/security/auth/overview/development/#token-generators
 
 4) Gjør kall mot API-et
 
