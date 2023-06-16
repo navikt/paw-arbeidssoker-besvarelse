@@ -10,10 +10,10 @@ import no.nav.poao_tilgang.client.PoaoTilgangCachedClient
 import no.nav.poao_tilgang.client.TilgangType
 
 class AutorisasjonService(
-    val poaoTilgangHttpClient: PoaoTilgangCachedClient
+    private val poaoTilgangHttpClient: PoaoTilgangCachedClient
 ) {
     fun verifiserVeilederTilgangTilBruker(navAnsatt: NavAnsatt, foedselsnummer: Foedselsnummer): Boolean {
-        logger.info("Henter besvarelse for veileder: '${navAnsatt.ident}' bruker: $foedselsnummer")
+        logger.info("Henter besvarelse til veileder: '${navAnsatt.ident}' bruker: $foedselsnummer")
         autitLogger.info(
             auditLogMelding(
                 foedselsnummer,
@@ -32,18 +32,24 @@ class AutorisasjonService(
             .isPermit
 
         if (!harNavAnsattTilgang) {
-            logger.warn(
-                "NAV-ansatt med ident: '${navAnsatt.ident}' har ikke tilgang til bruker (poao-tilgang)"
+            logger.warn("NAV-ansatt med ident: '${navAnsatt.ident}' har ikke tilgang til bruker (poao-tilgang)")
+            autitLogger.info(
+                auditLogMelding(
+                    foedselsnummer,
+                    navAnsatt,
+                    "Veileder ${navAnsatt.ident} har blitt nektet å hente besvarelse til arbeidssøker=${foedselsnummer.foedselsnummer}"
+                )
+            )
+        } else {
+            logger.warn("NAV-ansatt med ident: '${navAnsatt.ident}' har hentet besvarelse til bruker")
+            autitLogger.info(
+                auditLogMelding(
+                    foedselsnummer,
+                    navAnsatt,
+                    "Veileder ${navAnsatt.ident} har hentet besvarelse til arbeidssøker=${foedselsnummer.foedselsnummer}"
+                )
             )
         }
-
-        autitLogger.info(
-            auditLogMelding(
-                foedselsnummer,
-                navAnsatt,
-                "Veileder ${navAnsatt.ident} har hentet besvarelse til arbeidssøker=${foedselsnummer.foedselsnummer}"
-            )
-        )
 
         return harNavAnsattTilgang
     }
