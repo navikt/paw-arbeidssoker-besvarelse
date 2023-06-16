@@ -109,7 +109,8 @@ data class ArbeidssokerRegistrertEntity(
                     besvarelse.dinSituasjon?.tilleggsData?.sisteArbeidsdagDato,
                     besvarelse.dinSituasjon?.tilleggsData?.oppsigelseDato,
                     besvarelse.dinSituasjon?.tilleggsData?.gjelderFraDato,
-                    besvarelse.dinSituasjon?.tilleggsData?.permitteringsProsent
+                    besvarelse.dinSituasjon?.tilleggsData?.permitteringsProsent,
+                    besvarelse.dinSituasjon?.tilleggsData?.stillingsProsent
 
                 )
             )

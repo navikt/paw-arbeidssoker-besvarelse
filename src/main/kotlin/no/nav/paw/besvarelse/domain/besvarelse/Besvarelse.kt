@@ -76,7 +76,8 @@ data class DinSituasjonTilleggsData(
     val sisteArbeidsdagDato: LocalDate? = null,
     val oppsigelseDato: LocalDate? = null,
     val gjelderFraDato: GjelderFraDato = null,
-    val permitteringsProsent: String? = null
+    val permitteringsProsent: String? = null,
+    val stillingsProsent: String? = null
 )
 
 data class FremtidigSituasjon(

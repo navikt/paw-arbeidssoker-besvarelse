@@ -45,7 +45,7 @@ fun Route.veilederRoutes() {
             }
 
             post("/besvarelse") {
-                logger.info("Henter besvarelse til bruker for veileder")
+                logger.info("Henter besvarelse til bruker til veileder")
 
                 val navAnsatt = NavAnsatt(
                     call.getNavAnsattAzureId(),

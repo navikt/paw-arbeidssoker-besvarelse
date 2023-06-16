@@ -674,6 +674,16 @@
                                 }
                               ],
                               "default": null
+                            },
+                            {
+                              "name": "stillingsProsent",
+                              "type": [
+                                "null",
+                                {
+                                  "type": "string"
+                                }
+                              ],
+                              "default": null
                             }
                           ]
                         }
