@@ -4,6 +4,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.auth.authentication
 import no.nav.paw.besvarelse.domain.Foedselsnummer
+import no.nav.paw.besvarelse.domain.NavAnsatt
 import no.nav.paw.besvarelse.plugins.StatusException
 import no.nav.security.token.support.v2.TokenValidationContextPrincipal
 import java.util.*
@@ -21,12 +22,18 @@ fun ApplicationCall.getPidClaim(): Foedselsnummer =
             ?.let { Foedselsnummer(it) }
         ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'pid'-claim i token fra issuer")
 
-fun ApplicationCall.getNavAnsattAzureId(): UUID =
+private fun ApplicationCall.getNavAnsattAzureId(): UUID =
     getClaim("azure", "oid")
         ?.let { UUID.fromString(it) }
         ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'oid'-claim i token fra issuer")
 
-fun ApplicationCall.getNAVident(): String =
+private fun ApplicationCall.getNAVident(): String =
     getClaim("azure", "NAVident")
         ?: getClaim("azure", "name")
         ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'NAVident'-claim i token fra issuer")
+
+fun ApplicationCall.getNavAnsatt(): NavAnsatt =
+    NavAnsatt(
+        getNavAnsattAzureId(),
+        getNAVident()
+    )
