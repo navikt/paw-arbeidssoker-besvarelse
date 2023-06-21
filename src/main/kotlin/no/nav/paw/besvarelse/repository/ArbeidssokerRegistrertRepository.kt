@@ -13,6 +13,7 @@ import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import no.nav.paw.besvarelse.domain.request.EndreSituasjonRequest
+import no.nav.paw.besvarelse.plugins.BesvarelseNotFound
 import no.nav.paw.besvarelse.plugins.StatusException
 import no.nav.paw.besvarelse.utils.logger
 import org.postgresql.util.PSQLException
@@ -34,7 +35,7 @@ class ArbeidssokerRegistrertRepository(
                     ).map { it.tilBesvarelseEntity() }.asSingle
 
                 return session.run(query)
-                    ?: throw StatusException(HttpStatusCode.NoContent)
+                    ?: throw BesvarelseNotFound()
             }
         } catch (error: PSQLException) {
             logger.error("Feil i databaseoperasjon ved henting av siste besvarelse ${error.message}", error)
