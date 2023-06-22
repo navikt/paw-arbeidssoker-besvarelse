@@ -36,7 +36,7 @@ data class Config(
             name = "azure",
             discoveryUrl = dotenv["AZURE_APP_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["AZURE_APP_CLIENT_ID"]),
-            requiredClaims = RequiredClaims("azure", arrayOf("sub", "NAVident"))
+            requiredClaims = RequiredClaims("azure", arrayOf("NAVident"))
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
