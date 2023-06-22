@@ -58,49 +58,49 @@ data class ArbeidssokerRegistrertEntity(
         no.nav.paw.besvarelse.Besvarelse(
             Utdanning(
                 besvarelse.utdanning?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-                besvarelse.utdanning?.endretAv.toString(),
+                besvarelse.utdanning?.endretAv?.toString(),
                 besvarelse.utdanning?.gjelderFraDato,
                 besvarelse.utdanning?.gjelderTilDato,
                 UtdanningSvar.valueOf(besvarelse.utdanning?.verdi.toString())
             ),
             UtdanningBestatt(
                 besvarelse.utdanningBestatt?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-                besvarelse.utdanningBestatt?.endretAv.toString(),
+                besvarelse.utdanningBestatt?.endretAv?.toString(),
                 besvarelse.utdanningBestatt?.gjelderFraDato,
                 besvarelse.utdanningBestatt?.gjelderTilDato,
                 UtdanningBestattSvar.valueOf(besvarelse.utdanningBestatt?.verdi.toString())
             ),
             UtdanningGodkjent(
                 besvarelse.utdanningGodkjent?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-                besvarelse.utdanningGodkjent?.endretAv.toString(),
+                besvarelse.utdanningGodkjent?.endretAv?.toString(),
                 besvarelse.utdanningGodkjent?.gjelderFraDato,
                 besvarelse.utdanningGodkjent?.gjelderTilDato,
                 UtdanningGodkjentSvar.valueOf(besvarelse.utdanningGodkjent?.verdi.toString())
             ),
             HelseHinder(
                 besvarelse.helseHinder?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-                besvarelse.helseHinder?.endretAv.toString(),
+                besvarelse.helseHinder?.endretAv?.toString(),
                 besvarelse.helseHinder?.gjelderFraDato,
                 besvarelse.helseHinder?.gjelderTilDato,
                 HelseHinderSvar.valueOf(besvarelse.helseHinder?.verdi.toString())
             ),
             AndreForhold(
                 besvarelse.andreForhold?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-                besvarelse.andreForhold?.endretAv.toString(),
+                besvarelse.andreForhold?.endretAv?.toString(),
                 besvarelse.andreForhold?.gjelderFraDato,
                 besvarelse.andreForhold?.gjelderTilDato,
                 AndreForholdSvar.valueOf(besvarelse.andreForhold?.verdi.toString())
             ),
             SisteStilling(
                 besvarelse.sisteStilling?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-                besvarelse.sisteStilling?.endretAv.toString(),
+                besvarelse.sisteStilling?.endretAv?.toString(),
                 besvarelse.sisteStilling?.gjelderFraDato,
                 besvarelse.sisteStilling?.gjelderTilDato,
                 SisteStillingSvar.valueOf(besvarelse.sisteStilling?.verdi.toString())
             ),
             DinSituasjon(
                 besvarelse.dinSituasjon?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-                besvarelse.dinSituasjon?.endretAv.toString(),
+                besvarelse.dinSituasjon?.endretAv?.toString(),
                 besvarelse.dinSituasjon?.gjelderFraDato,
                 besvarelse.dinSituasjon?.gjelderTilDato,
                 DinSituasjonSvar.valueOf(besvarelse.dinSituasjon?.verdi.toString()),
