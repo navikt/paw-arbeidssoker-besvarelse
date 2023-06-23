@@ -13,12 +13,12 @@ class AutorisasjonService(
     private val poaoTilgangHttpClient: PoaoTilgangCachedClient
 ) {
     fun verifiserVeilederTilgangTilBruker(navAnsatt: NavAnsatt, foedselsnummer: Foedselsnummer): Boolean {
-        logger.info("Henter besvarelse til veileder: '${navAnsatt.ident}' bruker: $foedselsnummer")
+        logger.info("NAV-ansatt (${navAnsatt.ident}) forsøker å hente informasjon om bruker: $foedselsnummer")
         autitLogger.info(
             auditLogMelding(
                 foedselsnummer,
                 navAnsatt,
-                "Veileder ${navAnsatt.ident} forsøker å lese besvarelse til arbeidssøker=${foedselsnummer.foedselsnummer}"
+                "NAV-ansatt (${navAnsatt.ident}) forsøker å hente informasjon om bruker: ${foedselsnummer.foedselsnummer}"
             )
         )
 
@@ -32,21 +32,21 @@ class AutorisasjonService(
             .isPermit
 
         if (!harNavAnsattTilgang) {
-            logger.warn("NAV-ansatt med ident: '${navAnsatt.ident}' har ikke tilgang til bruker (poao-tilgang)")
+            logger.warn("NAV-ansatt (${navAnsatt.ident}) har ikke tilgang til bruker (v/poao-tilgang)")
             autitLogger.info(
                 auditLogMelding(
                     foedselsnummer,
                     navAnsatt,
-                    "Veileder ${navAnsatt.ident} har blitt nektet å hente besvarelse til arbeidssøker=${foedselsnummer.foedselsnummer}"
+                    "NAV-ansatt (${navAnsatt.ident}) har ikke tilgang til bruker: ${foedselsnummer.foedselsnummer} (v/poao-tilgang)"
                 )
             )
         } else {
-            logger.warn("NAV-ansatt med ident: '${navAnsatt.ident}' har hentet besvarelse til bruker")
+            logger.warn("NAV-ansatt med ident: (${navAnsatt.ident}) har hentet informasjon om bruker")
             autitLogger.info(
                 auditLogMelding(
                     foedselsnummer,
                     navAnsatt,
-                    "Veileder ${navAnsatt.ident} har hentet besvarelse til arbeidssøker=${foedselsnummer.foedselsnummer}"
+                    "NAV-ansatt med ident: (${navAnsatt.ident}) har hentet informasjon om bruker: ${foedselsnummer.foedselsnummer}"
                 )
             )
         }
