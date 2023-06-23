@@ -684,6 +684,16 @@
                                 }
                               ],
                               "default": null
+                            },
+                            {
+                              "name": "permitteringForlenget",
+                              "type": [
+                                "null",
+                                {
+                                  "type": "string"
+                                }
+                              ],
+                              "default": null
                             }
                           ]
                         }
