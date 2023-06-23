@@ -32,7 +32,7 @@ class AutorisasjonService(
             .isPermit
 
         if (!harNavAnsattTilgang) {
-            logger.warn("NAV-ansatt (${navAnsatt.ident}) har ikke tilgang til bruker (v/poao-tilgang)")
+            logger.warn("NAV-ansatt (${navAnsatt.ident}) har ikke tilgang til bruker: $foedselsnummer (v/poao-tilgang)")
             autitLogger.info(
                 auditLogMelding(
                     foedselsnummer,
@@ -41,12 +41,12 @@ class AutorisasjonService(
                 )
             )
         } else {
-            logger.warn("NAV-ansatt med ident: (${navAnsatt.ident}) har hentet informasjon om bruker")
+            logger.warn("NAV-ansatt (${navAnsatt.ident}) har hentet informasjon om bruker: $foedselsnummer")
             autitLogger.info(
                 auditLogMelding(
                     foedselsnummer,
                     navAnsatt,
-                    "NAV-ansatt med ident: (${navAnsatt.ident}) har hentet informasjon om bruker: ${foedselsnummer.foedselsnummer}"
+                    "NAV-ansatt (${navAnsatt.ident}) har hentet informasjon om bruker: ${foedselsnummer.foedselsnummer}"
                 )
             )
         }
