@@ -10,7 +10,7 @@ import java.util.*
 
 fun Application.configureLogging() {
     install(CallId) {
-        retrieveFromHeader("Nav-Call-Id")
+        retrieveFromHeader("x_callId")
         generate { UUID.randomUUID().toString() }
         verify { it.isNotEmpty() }
     }

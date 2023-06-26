@@ -8,10 +8,12 @@ import kotliquery.queryOf
 import kotliquery.sessionOf
 import no.nav.paw.besvarelse.domain.AktorId
 import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrertEntity
+import no.nav.paw.besvarelse.domain.Bruker
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.DinSituasjon
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import no.nav.paw.besvarelse.domain.request.EndreSituasjonRequest
+import no.nav.paw.besvarelse.plugins.BesvarelseNotFound
 import no.nav.paw.besvarelse.plugins.StatusException
 import no.nav.paw.besvarelse.utils.logger
 import org.postgresql.util.PSQLException
@@ -22,18 +24,18 @@ class ArbeidssokerRegistrertRepository(
     private val dataSource: DataSource,
     private val objectMapper: ObjectMapper
 ) {
-    fun hentSiste(foedselsnummer: Foedselsnummer): ArbeidssokerRegistrertEntity {
+    fun hentSiste(bruker: Bruker): ArbeidssokerRegistrertEntity {
         logger.info("Henter sist oppdaterte besvarelse fra database")
 
         try {
             sessionOf(dataSource).use { session ->
                 val query =
                     queryOf(
-                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer = ? ORDER BY endret_dato DESC LIMIT 1",
-                        foedselsnummer.foedselsnummer
+                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer IN (${bruker.alleFoedselsnummer.joinToString(separator = ",") { s -> "\'$s\'" }}) ORDER BY endret_tidspunkt DESC LIMIT 1"
                     ).map { it.tilBesvarelseEntity() }.asSingle
+
                 return session.run(query)
-                    ?: throw StatusException(HttpStatusCode.NoContent)
+                    ?: throw BesvarelseNotFound()
             }
         } catch (error: PSQLException) {
             logger.error("Feil i databaseoperasjon ved henting av siste besvarelse ${error.message}", error)
@@ -41,28 +43,28 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun opprett(arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity, endret: Boolean = false): ArbeidssokerRegistrertEntity {
+    fun opprett(bruker: Bruker, arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity, endret: Boolean = false): ArbeidssokerRegistrertEntity {
         logger.info("Oppretter ny besvarelse i database")
 
         try {
             sessionOf(dataSource, returnGeneratedKey = true).use { session ->
                 val query =
                     queryOf(
-                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, registrerings_dato, opprettet_av, endret_av, endret)
+                        """INSERT INTO $ARBEIDSSOKER_REGISTRERT_TABELL(foedselsnummer, aktor_id, registrerings_id, besvarelse, registrerings_tidspunkt, opprettet_av, endret_av, er_besvarelsen_endret)
                             |VALUES (?, ?, ?::int, ?::jsonb, ?, ?, ?, ?)
                         """.trimMargin(),
                         arbeidssokerRegistrertEntity.foedselsnummer.foedselsnummer,
                         arbeidssokerRegistrertEntity.aktorId.aktorId,
                         arbeidssokerRegistrertEntity.registreringsId,
                         objectMapper.writeValueAsString(arbeidssokerRegistrertEntity.besvarelse),
-                        arbeidssokerRegistrertEntity.registreringsDato,
+                        arbeidssokerRegistrertEntity.registreringsTidspunkt,
                         arbeidssokerRegistrertEntity.opprettetAv.toString(),
                         arbeidssokerRegistrertEntity.endretAv.toString(),
                         endret
                     ).asUpdateAndReturnGeneratedKey
                 session.run(query)
                     ?: throw StatusException(HttpStatusCode.InternalServerError, "Ukjent feil ved oppretting i databasen")
-                return hentSiste(arbeidssokerRegistrertEntity.foedselsnummer)
+                return hentSiste(bruker)
             }
         } catch (error: PSQLException) {
             logger.error("Feil i databaseoperasjon ved oppretting av besvarelse ${error.message}", error)
@@ -70,10 +72,10 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun endreSituasjon(foedselsnummer: Foedselsnummer, endreSituasjonRequest: EndreSituasjonRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
+    fun endreSituasjon(bruker: Bruker, endreSituasjonRequest: EndreSituasjonRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
         logger.info("Endrer situasjon i besvarelsen i databasen")
 
-        val arbeidssokerRegistrert = hentSiste(foedselsnummer)
+        val arbeidssokerRegistrert = hentSiste(bruker)
             .copy(endretAv = endretAv)
 
         val endretBesvarelse = arbeidssokerRegistrert.besvarelse
@@ -84,12 +86,12 @@ class ArbeidssokerRegistrertRepository(
                     gjelderFraDato = endreSituasjonRequest.dinSituasjon.gjelderFraDato,
                     gjelderTilDato = endreSituasjonRequest.dinSituasjon.gjelderTilDato,
                     endretAv = endretAv,
-                    endretDato = LocalDateTime.now()
+                    endretTidspunkt = LocalDateTime.now()
                 )
             )
 
         val arbeidssokerRegistrertEndret = arbeidssokerRegistrert.copy(besvarelse = endretBesvarelse)
-        return opprett(arbeidssokerRegistrertEndret, true)
+        return opprett(bruker, arbeidssokerRegistrertEndret, true)
     }
 
     private fun Row.tilBesvarelseEntity() = ArbeidssokerRegistrertEntity(
@@ -98,11 +100,11 @@ class ArbeidssokerRegistrertRepository(
         AktorId(string("aktor_id")),
         int("registrerings_id"),
         objectMapper.readValue(string("besvarelse")),
-        localDateTime("endret_dato"),
-        localDateTime("registrerings_dato"),
+        localDateTime("endret_tidspunkt"),
+        localDateTime("registrerings_tidspunkt"),
         EndretAv.valueOf(string("opprettet_av")),
         EndretAv.valueOf(string("endret_av")),
-        boolean("endret")
+        boolean("er_besvarelsen_endret")
     )
 
     companion object {

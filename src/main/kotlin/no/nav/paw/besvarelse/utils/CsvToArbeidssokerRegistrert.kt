@@ -2,12 +2,14 @@ package no.nav.paw.besvarelse.utils
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.MappingIterator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
 import no.nav.paw.besvarelse.domain.AktorId
 import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrert
+import no.nav.paw.besvarelse.domain.Bruker
 import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.besvarelse.AndreForhold
 import no.nav.paw.besvarelse.domain.besvarelse.AndreForholdSvar
@@ -28,12 +30,15 @@ import no.nav.paw.besvarelse.domain.besvarelse.UtdanningSvar
 import java.io.File
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 data class TekstForSporsmal(
     val sporsmalId: String,
     val sporsmal: String,
     val svar: String
 )
+
+var formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSS")
 
 val nuskodeMap: Map<Int, UtdanningSvar> = mapOf(
     0 to UtdanningSvar.INGEN_UTDANNING,
@@ -63,15 +68,18 @@ data class UserData(
     @JsonProperty("har_helseutfordringer") val helseHinder: HelseHinderSvar,
     @JsonProperty("tekster_for_besvarelse") val teksterForBesvarelse: String,
     @JsonProperty("foedselsnummer") val foedselsnummer: String = "12345678910",
-    @JsonProperty("opprettet_av") val opprettetAv: EndretAv
+    @JsonProperty("opprettet_av") val opprettetAv: EndretAv = EndretAv.SYSTEM
 ) {
     fun tilArbeidssokerRegistrert(): ArbeidssokerRegistrert {
         // val mapper = ObjectMapper().findAndRegisterModules()
         // val besvarelse: List<TekstForSporsmal> = mapper.readValue(teksterForBesvarelse)
 
         return ArbeidssokerRegistrert(
-            Foedselsnummer(foedselsnummer),
-            AktorId(aktorId),
+            Bruker(
+                Foedselsnummer(foedselsnummer),
+                emptyList(),
+                AktorId(aktorId)
+            ),
             registreringsId,
             Besvarelse(
                 Utdanning(nuskodeMap[nusKode]),
@@ -92,8 +100,9 @@ data class UserData(
 
 fun main() {
     val mapper = ObjectMapper().findAndRegisterModules()
-    val file = File("src/main/resources/import_test.csv")
+    val file = File("src/main/resources/import_test2.csv")
     val csvMapper = CsvMapper().findAndRegisterModules()
+    csvMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
     val userDataList: List<ArbeidssokerRegistrert> = csvMapper
         .readerFor(UserData::class.java)
@@ -104,8 +113,10 @@ fun main() {
         }
         .map { it.tilArbeidssokerRegistrert() }
 
-    // foedselsnummer, aktor_id, registrerings_id, besvarelse, endret_av
+    println("foedselsnummer\taktor_id\tregistrerings_id\tbesvarelse\tendret_tidspunkt\tregistrerings_tidspunkt\topprettet_av\tendret_av\ter_besvarelsen_endret")
     userDataList.forEach {
-        println("${it.foedselsnummer.foedselsnummer}\t${it.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(it.besvarelse)}\t${it.opprettetDato.toLocalDateTime()}\t${it.opprettetAv}")
+        println(
+            "${it.bruker.foedselsnummer.foedselsnummer}\t${it.bruker.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(it.besvarelse)}\t${it.opprettetDato.format(formatter)}\t${it.opprettetDato.format(formatter)}\t${it.opprettetAv}\t${EndretAv.SYSTEM}\tfalse" // ktlint-disable max-line-length
+        )
     }
 }

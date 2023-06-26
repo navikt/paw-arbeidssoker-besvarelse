@@ -5,8 +5,7 @@ import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import java.time.ZonedDateTime
 
 data class ArbeidssokerRegistrert(
-    val foedselsnummer: Foedselsnummer,
-    val aktorId: AktorId,
+    val bruker: Bruker,
     val registreringsId: Int,
     val besvarelse: Besvarelse,
     val opprettetDato: ZonedDateTime,
@@ -14,8 +13,8 @@ data class ArbeidssokerRegistrert(
 ) {
     fun tilArbeidssokerRegistrertEntity() = ArbeidssokerRegistrertEntity(
         null,
-        foedselsnummer,
-        aktorId,
+        bruker.foedselsnummer,
+        bruker.aktorId,
         registreringsId,
         besvarelse,
         null,

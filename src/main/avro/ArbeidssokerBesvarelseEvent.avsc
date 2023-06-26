@@ -20,23 +20,23 @@
       "name": "aktorId"
     },
     {
-      "name": "endretDato",
+      "name": "endretTidspunkt",
       "type": [
         "null",
         {
           "type": "long",
-          "logicalType": "local-timestamp-millis"
+          "logicalType": "timestamp-millis"
         }
       ],
       "default": null
     },
     {
-      "name": "registreringsDato",
+      "name": "registreringsTidspunkt",
       "type": [
         "null",
         {
           "type": "long",
-          "logicalType": "local-timestamp-millis"
+          "logicalType": "timestamp-millis"
         }
       ],
       "default": null
@@ -92,12 +92,12 @@
                   "name": "Utdanning",
                   "fields": [
                     {
-                      "name": "endretDato",
+                      "name": "endretTidspunkt",
                       "type": [
                         "null",
                         {
                           "type": "long",
-                          "logicalType": "local-timestamp-millis"
+                          "logicalType": "timestamp-millis"
                         }
                       ],
                       "default": null
@@ -169,12 +169,12 @@
                   "name": "UtdanningBestatt",
                   "fields": [
                     {
-                      "name": "endretDato",
+                      "name": "endretTidspunkt",
                       "type": [
                         "null",
                         {
                           "type": "long",
-                          "logicalType": "local-timestamp-millis"
+                          "logicalType": "timestamp-millis"
                         }
                       ],
                       "default": null
@@ -242,12 +242,12 @@
                   "name": "UtdanningGodkjent",
                   "fields": [
                     {
-                      "name": "endretDato",
+                      "name": "endretTidspunkt",
                       "type": [
                         "null",
                         {
                           "type": "long",
-                          "logicalType": "local-timestamp-millis"
+                          "logicalType": "timestamp-millis"
                         }
                       ],
                       "default": null
@@ -316,12 +316,12 @@
                   "name": "HelseHinder",
                   "fields": [
                     {
-                      "name": "endretDato",
+                      "name": "endretTidspunkt",
                       "type": [
                         "null",
                         {
                           "type": "long",
-                          "logicalType": "local-timestamp-millis"
+                          "logicalType": "timestamp-millis"
                         }
                       ],
                       "default": null
@@ -389,12 +389,12 @@
                   "name": "AndreForhold",
                   "fields": [
                     {
-                      "name": "endretDato",
+                      "name": "endretTidspunkt",
                       "type": [
                         "null",
                         {
                           "type": "long",
-                          "logicalType": "local-timestamp-millis"
+                          "logicalType": "timestamp-millis"
                         }
                       ],
                       "default": null
@@ -462,12 +462,12 @@
                   "name": "SisteStilling",
                   "fields": [
                     {
-                      "name": "endretDato",
+                      "name": "endretTidspunkt",
                       "type": [
                         "null",
                         {
                           "type": "long",
-                          "logicalType": "local-timestamp-millis"
+                          "logicalType": "timestamp-millis"
                         }
                       ],
                       "default": null
@@ -535,12 +535,12 @@
                   "name": "DinSituasjon",
                   "fields": [
                     {
-                      "name": "endretDato",
+                      "name": "endretTidspunkt",
                       "type": [
                         "null",
                         {
                           "type": "long",
-                          "logicalType": "local-timestamp-millis"
+                          "logicalType": "timestamp-millis"
                         }
                       ],
                       "default": null
@@ -667,6 +667,26 @@
                             },
                             {
                               "name": "permitteringsProsent",
+                              "type": [
+                                "null",
+                                {
+                                  "type": "string"
+                                }
+                              ],
+                              "default": null
+                            },
+                            {
+                              "name": "stillingsProsent",
+                              "type": [
+                                "null",
+                                {
+                                  "type": "string"
+                                }
+                              ],
+                              "default": null
+                            },
+                            {
+                              "name": "permitteringForlenget",
                               "type": [
                                 "null",
                                 {

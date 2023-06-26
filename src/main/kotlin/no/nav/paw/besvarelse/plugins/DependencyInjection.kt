@@ -26,6 +26,11 @@ import no.nav.paw.besvarelse.kafka.consumer.ArbeidssokerRegistreringConsumer
 import no.nav.paw.besvarelse.kafka.producer.ArbeidssokerBesvarelseProducer
 import no.nav.paw.besvarelse.repository.ArbeidssokerRegistrertRepository
 import no.nav.paw.besvarelse.services.ArbeidssokerRegistrertService
+import no.nav.paw.besvarelse.services.AutorisasjonService
+import no.nav.paw.besvarelse.token.TokenService
+import no.nav.paw.pdl.PdlClient
+import no.nav.poao_tilgang.client.PoaoTilgangCachedClient
+import no.nav.poao_tilgang.client.PoaoTilgangHttpClient
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
@@ -36,9 +41,7 @@ fun Application.configureDependencyInjection(config: Config) {
     install(Koin) {
         modules(
             module {
-                single {
-                    createDatabaseConfig(config.database.jdbcUrl)
-                }
+                single { createDatabaseConfig(config.database.jdbcUrl) }
 
                 single {
                     HttpClient {
@@ -115,6 +118,19 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
 
                 single {
+                    PoaoTilgangCachedClient(
+                        PoaoTilgangHttpClient(
+                            config.poaoTilgangClient.url,
+                            { TokenService().createMachineToMachineToken(config.poaoTilgangClient.scope) }
+                        )
+                    )
+                }
+
+                single { AutorisasjonService(get()) }
+
+                single { PdlClient(config.pdlClientConfig.url, "OPP", get()) { TokenService().createMachineToMachineToken(config.pdlClientConfig.scope) } }
+
+                single {
                     ArbeidssokerRegistreringConsumer(
                         config.kafka.consumers.arbeidssokerRegistrering.topic,
                         get(),
@@ -125,7 +141,7 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
                 single { ArbeidssokerBesvarelseProducer(get(), config.kafka.producers.arbeidssokerBesvarelse.topic) }
                 single { ArbeidssokerRegistrertRepository(get(), get()) }
-                single { ArbeidssokerRegistrertService(get(), get()) }
+                single { ArbeidssokerRegistrertService(get(), get(), get()) }
             }
         )
     }

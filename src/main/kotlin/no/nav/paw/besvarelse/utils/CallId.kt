@@ -4,7 +4,7 @@ import org.slf4j.MDC
 import java.util.*
 
 object CallId {
-    val callId: String get() = MDC.get("callId") ?: UUID.randomUUID().toString()
+    val callId: String get() = MDC.get("x_callId") ?: UUID.randomUUID().toString()
 
-    fun leggTilCallId() = MDC.put("callId", UUID.randomUUID().toString())
+    fun leggTilCallId() = MDC.put("x_callId", UUID.randomUUID().toString())
 }

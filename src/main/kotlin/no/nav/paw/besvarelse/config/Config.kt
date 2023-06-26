@@ -31,6 +31,12 @@ data class Config(
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
             requiredClaims = RequiredClaims("tokendings", arrayOf("acr=Level4"))
+        ),
+        AuthProvider(
+            name = "azure",
+            discoveryUrl = dotenv["AZURE_APP_WELL_KNOWN_URL"],
+            acceptedAudience = listOf(dotenv["AZURE_APP_CLIENT_ID"]),
+            requiredClaims = RequiredClaims("azure", arrayOf("NAVident"))
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
@@ -49,6 +55,14 @@ data class Config(
                 dotenv["KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC"]
             )
         )
+    ),
+    val pdlClientConfig: ServiceClientConfig = ServiceClientConfig(
+        dotenv["PDL_URL"],
+        dotenv["PDL_SCOPE"]
+    ),
+    val poaoTilgangClient: ServiceClientConfig = ServiceClientConfig(
+        dotenv["POAO_TILGANG_CLIENT_URL"],
+        dotenv["POAO_TILGANG_CLIENT_SCOPE"]
     )
 )
 
@@ -99,6 +113,11 @@ data class AuthProvider(
     val acceptedAudience: List<String>,
     val cookieName: String? = null,
     val requiredClaims: RequiredClaims? = null
+)
+
+data class ServiceClientConfig(
+    val url: String,
+    val scope: String
 )
 
 enum class NaisEnv(val clusterName: String) {

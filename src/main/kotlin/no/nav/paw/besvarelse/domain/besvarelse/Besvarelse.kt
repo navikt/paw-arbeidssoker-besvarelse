@@ -19,7 +19,7 @@ data class Utdanning(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class UtdanningBestatt(
@@ -27,7 +27,7 @@ data class UtdanningBestatt(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class UtdanningGodkjent(
@@ -35,7 +35,7 @@ data class UtdanningGodkjent(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class HelseHinder(
@@ -43,7 +43,7 @@ data class HelseHinder(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class AndreForhold(
@@ -51,7 +51,7 @@ data class AndreForhold(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class SisteStilling(
@@ -59,7 +59,7 @@ data class SisteStilling(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class DinSituasjon(
@@ -68,7 +68,7 @@ data class DinSituasjon(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class DinSituasjonTilleggsData(
@@ -76,7 +76,9 @@ data class DinSituasjonTilleggsData(
     val sisteArbeidsdagDato: LocalDate? = null,
     val oppsigelseDato: LocalDate? = null,
     val gjelderFraDato: GjelderFraDato = null,
-    val permitteringsProsent: String? = null
+    val permitteringsProsent: String? = null,
+    val stillingsProsent: String? = null,
+    val permitteringForlenget: String? = null
 )
 
 data class FremtidigSituasjon(
@@ -84,7 +86,7 @@ data class FremtidigSituasjon(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 data class TilbakeIArbeid(
@@ -92,11 +94,11 @@ data class TilbakeIArbeid(
     val gjelderFraDato: GjelderFraDato = null,
     val gjelderTilDato: GjelderTilDato = null,
     val endretAv: EndretAv? = null,
-    val endretDato: EndretDato? = null
+    val endretTidspunkt: EndretTidspunkt? = null
 )
 
 typealias GjelderFraDato = LocalDate?
 typealias GjelderTilDato = LocalDate?
-typealias EndretDato = LocalDateTime
+typealias EndretTidspunkt = LocalDateTime
 
 enum class EndretAv { BRUKER, VEILEDER, SYSTEM }

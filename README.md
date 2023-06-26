@@ -32,11 +32,21 @@ Gå til https://arbeid.intern.dev.nav.no/arbeid/registrering og registrer bruker
 
 Vent litt. 
 
-3) Logg inn i debug-dings med test-id med din nye dolly bruker
+3)
+
+* For idporten.
+
+Logg inn i debug-dings med test-id med din nye dolly bruker
 
 Gå til https://debug-dings.intern.dev.nav.no/debugger
 
 Logg inn. Sett audience til `dev-gcp:paw:paw-arbeidssoker-besvarelse`
+
+* For `/veileder` endepunkter.
+
+Logg inn med trygdeetatenbruker på https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.paw-arbeidssoker-besvarelse
+
+Les mer: https://docs.nais.io/security/auth/overview/development/#token-generators
 
 4) Gjør kall mot API-et
 
@@ -110,6 +120,14 @@ Vi benytter mock-ouath2-server til å utstede tokens på lokal maskin. Følgende
 { "acr": "Level3", "pid": "18908396568" }
 ```
 
+For veileder:
+```json
+{
+  "oid": "989f736f-14db-45dc-b8d1-94d621dbf2bb",
+  "NAVident": "test"
+}
+```
+
 6. Trykk Sign in
 7. Kopier verdien for access_token og benytt denne som Bearer i Authorization-header
 
@@ -135,10 +153,10 @@ docker exec -it paw-arbeidssoker-besvarelse_kafka_1 /usr/bin/kafka-console-produ
 
 ### Consumer
 
-Consumer meldinger fra `arbeidssoker-besvarelse-v1`
+Consumer meldinger fra `arbeidssoker-besvarelse-v2`
 
 ```sh
-docker exec -it paw-arbeidssoker-besvarelse_kafka_1 /usr/bin/kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-besvarelse-v1
+docker exec -it paw-arbeidssoker-besvarelse_kafka_1 /usr/bin/kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-besvarelse-v2
 ```
 
 ## Formatering
