@@ -21,6 +21,7 @@ import no.nav.paw.besvarelse.domain.besvarelse.Besvarelse
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import no.nav.paw.besvarelse.domain.response.ArbeidssokerRegistrertResponse
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZoneOffset
 
 data class ArbeidssokerRegistrertEntity(
@@ -57,49 +58,49 @@ data class ArbeidssokerRegistrertEntity(
         erBesvarelsenEndret,
         no.nav.paw.besvarelse.Besvarelse(
             Utdanning(
-                besvarelse.utdanning?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+                besvarelse.utdanning?.endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
                 besvarelse.utdanning?.endretAv?.toString(),
                 besvarelse.utdanning?.gjelderFraDato,
                 besvarelse.utdanning?.gjelderTilDato,
                 UtdanningSvar.valueOf(besvarelse.utdanning?.verdi.toString())
             ),
             UtdanningBestatt(
-                besvarelse.utdanningBestatt?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+                besvarelse.utdanningBestatt?.endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
                 besvarelse.utdanningBestatt?.endretAv?.toString(),
                 besvarelse.utdanningBestatt?.gjelderFraDato,
                 besvarelse.utdanningBestatt?.gjelderTilDato,
                 UtdanningBestattSvar.valueOf(besvarelse.utdanningBestatt?.verdi.toString())
             ),
             UtdanningGodkjent(
-                besvarelse.utdanningGodkjent?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+                besvarelse.utdanningGodkjent?.endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
                 besvarelse.utdanningGodkjent?.endretAv?.toString(),
                 besvarelse.utdanningGodkjent?.gjelderFraDato,
                 besvarelse.utdanningGodkjent?.gjelderTilDato,
                 UtdanningGodkjentSvar.valueOf(besvarelse.utdanningGodkjent?.verdi.toString())
             ),
             HelseHinder(
-                besvarelse.helseHinder?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+                besvarelse.helseHinder?.endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
                 besvarelse.helseHinder?.endretAv?.toString(),
                 besvarelse.helseHinder?.gjelderFraDato,
                 besvarelse.helseHinder?.gjelderTilDato,
                 HelseHinderSvar.valueOf(besvarelse.helseHinder?.verdi.toString())
             ),
             AndreForhold(
-                besvarelse.andreForhold?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+                besvarelse.andreForhold?.endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
                 besvarelse.andreForhold?.endretAv?.toString(),
                 besvarelse.andreForhold?.gjelderFraDato,
                 besvarelse.andreForhold?.gjelderTilDato,
                 AndreForholdSvar.valueOf(besvarelse.andreForhold?.verdi.toString())
             ),
             SisteStilling(
-                besvarelse.sisteStilling?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+                besvarelse.sisteStilling?.endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
                 besvarelse.sisteStilling?.endretAv?.toString(),
                 besvarelse.sisteStilling?.gjelderFraDato,
                 besvarelse.sisteStilling?.gjelderTilDato,
                 SisteStillingSvar.valueOf(besvarelse.sisteStilling?.verdi.toString())
             ),
             DinSituasjon(
-                besvarelse.dinSituasjon?.endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+                besvarelse.dinSituasjon?.endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
                 besvarelse.dinSituasjon?.endretAv?.toString(),
                 besvarelse.dinSituasjon?.gjelderFraDato,
                 besvarelse.dinSituasjon?.gjelderTilDato,
