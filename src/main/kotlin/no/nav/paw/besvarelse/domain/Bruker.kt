@@ -8,7 +8,7 @@ data class Bruker(
     val identInformasjon: List<IdentInformasjon>?,
     val aktorId: AktorId = AktorId("IKKE_SATT")
 ) {
-    val historiskeFoedselsnummer: List<String>
+    private val historiskeFoedselsnummer: List<String>
         get() = identInformasjon
             ?.filter { it.gruppe == IdentGruppe.FOLKEREGISTERIDENT }
             ?.map { it.ident }

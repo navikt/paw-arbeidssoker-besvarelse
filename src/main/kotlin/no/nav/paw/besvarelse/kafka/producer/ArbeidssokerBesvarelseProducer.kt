@@ -23,6 +23,6 @@ class ArbeidssokerBesvarelseProducer(
         )
 
         kafkaProducerClient.sendSync(record)
-        logger.info("Sendte melding om situasjonsendring til $topic")
+        logger.info("Sendte melding om endring i besvarelse til $topic")
     }
 }
