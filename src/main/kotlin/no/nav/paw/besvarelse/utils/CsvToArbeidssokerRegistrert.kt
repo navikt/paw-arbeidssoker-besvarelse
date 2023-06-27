@@ -68,7 +68,7 @@ data class UserData(
     @JsonProperty("har_helseutfordringer") val helseHinder: HelseHinderSvar,
     @JsonProperty("tekster_for_besvarelse") val teksterForBesvarelse: String,
     @JsonProperty("foedselsnummer") val foedselsnummer: String = "12345678910",
-    @JsonProperty("opprettet_av") val opprettetAv: EndretAv = EndretAv.SYSTEM
+    @JsonProperty("opprettet_av") val opprettetAv: EndretAv = EndretAv.BRUKER
 ) {
     fun tilArbeidssokerRegistrert(): ArbeidssokerRegistrert {
         // val mapper = ObjectMapper().findAndRegisterModules()
