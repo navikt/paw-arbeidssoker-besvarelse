@@ -19,6 +19,7 @@ fun Application.configureHTTP() {
             call.respond(cause.status, cause.description ?: cause.status.description)
         }
         exception<BesvarelseNotFound> { call, _ ->
+            logger.info("Ingen besvarelse funnet")
             call.respond(HttpStatusCode.NoContent)
         }
     }
