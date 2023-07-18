@@ -76,6 +76,9 @@ spec:
           - application: veilarbvedtaksstotte
             namespace: pto
             cluster: dev-fss
+          - application: veilarbperson
+            namespace: pto
+            cluster: dev-fss 
       outbound:
         rules:
           - application: poao-tilgang
