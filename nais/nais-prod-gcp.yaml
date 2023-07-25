@@ -65,6 +65,12 @@ spec:
       rules:
         - application: aia-backend
           namespace: paw
+        - application: veilarbvedtaksstotte
+          namespace: pto
+          cluster: prod-fss
+        - application: veilarbperson
+          namespace: pto
+          cluster: prod-fss
     outbound:
       rules:
         - application: poao-tilgang
