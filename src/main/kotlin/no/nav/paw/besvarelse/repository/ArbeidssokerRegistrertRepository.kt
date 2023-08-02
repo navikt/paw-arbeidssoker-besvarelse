@@ -31,7 +31,11 @@ class ArbeidssokerRegistrertRepository(
             sessionOf(dataSource).use { session ->
                 val query =
                     queryOf(
-                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer IN (${bruker.alleFoedselsnummer.joinToString(separator = ",") { s -> "\'$s\'" }}) ORDER BY endret_tidspunkt DESC LIMIT 1"
+                        "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer IN (${
+                        bruker.alleFoedselsnummer.joinToString(
+                            separator = ","
+                        ) { s -> "\'$s\'" }
+                        }) ORDER BY endret_tidspunkt DESC LIMIT 1"
                     ).map { it.tilBesvarelseEntity() }.asSingle
 
                 return session.run(query)
@@ -43,7 +47,11 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun opprett(bruker: Bruker, arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity, endret: Boolean = false): ArbeidssokerRegistrertEntity {
+    fun opprett(
+        bruker: Bruker,
+        arbeidssokerRegistrertEntity: ArbeidssokerRegistrertEntity,
+        endret: Boolean = false
+    ): ArbeidssokerRegistrertEntity {
         logger.info("Oppretter ny besvarelse i database")
 
         try {
@@ -63,7 +71,10 @@ class ArbeidssokerRegistrertRepository(
                         endret
                     ).asUpdateAndReturnGeneratedKey
                 session.run(query)
-                    ?: throw StatusException(HttpStatusCode.InternalServerError, "Ukjent feil ved oppretting i databasen")
+                    ?: throw StatusException(
+                        HttpStatusCode.InternalServerError,
+                        "Ukjent feil ved oppretting i databasen"
+                    )
                 return hentSiste(bruker)
             }
         } catch (error: PSQLException) {
@@ -72,7 +83,11 @@ class ArbeidssokerRegistrertRepository(
         }
     }
 
-    fun endreSituasjon(bruker: Bruker, endreSituasjonRequest: EndreSituasjonRequest, endretAv: EndretAv): ArbeidssokerRegistrertEntity {
+    fun endreSituasjon(
+        bruker: Bruker,
+        endreSituasjonRequest: EndreSituasjonRequest,
+        endretAv: EndretAv
+    ): ArbeidssokerRegistrertEntity {
         logger.info("Endrer situasjon i besvarelsen i databasen")
 
         val arbeidssokerRegistrert = hentSiste(bruker)
