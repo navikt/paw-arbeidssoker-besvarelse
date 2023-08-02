@@ -14,6 +14,7 @@ data class Besvarelse(
     val fremtidigSituasjon: FremtidigSituasjon? = null,
     val tilbakeIArbeid: TilbakeIArbeid? = null
 )
+
 data class Utdanning(
     val verdi: UtdanningSvar? = null,
     val gjelderFraDato: GjelderFraDato = null,
@@ -78,7 +79,8 @@ data class DinSituasjonTilleggsData(
     val gjelderFraDato: GjelderFraDato = null,
     val permitteringsProsent: String? = null,
     val stillingsProsent: String? = null,
-    val permitteringForlenget: String? = null
+    val permitteringForlenget: String? = null,
+    val harNyJobb: String? = null
 )
 
 data class FremtidigSituasjon(

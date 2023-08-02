@@ -694,6 +694,16 @@
                                 }
                               ],
                               "default": null
+                            },
+                            {
+                              "name": "harNyJobb",
+                              "type": [
+                                "null",
+                                {
+                                  "type": "string"
+                                }
+                              ],
+                              "default": null
                             }
                           ]
                         }
