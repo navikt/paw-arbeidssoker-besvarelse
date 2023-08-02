@@ -290,6 +290,8 @@ components:
           format: "date"
         permitteringsProsent:
           type: "string"
+        permitteringForlenget:
+          type: "string"
         stillingsProsent:
           type: "string"
         harNyJobb:
