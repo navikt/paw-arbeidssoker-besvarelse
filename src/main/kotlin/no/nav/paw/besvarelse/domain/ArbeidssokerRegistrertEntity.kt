@@ -22,7 +22,6 @@ import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
 import no.nav.paw.besvarelse.domain.response.ArbeidssokerRegistrertResponse
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
 
 data class ArbeidssokerRegistrertEntity(
     val id: Int? = null,
@@ -51,8 +50,8 @@ data class ArbeidssokerRegistrertEntity(
         registreringsId,
         foedselsnummer.foedselsnummer,
         aktorId.aktorId,
-        endretTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
-        registreringsTidspunkt?.toInstant(ZoneOffset.ofHours(1)),
+        endretTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
+        registreringsTidspunkt?.atZone(ZoneId.of("Europe/Oslo"))?.toInstant(),
         OpprettetAv.valueOf(opprettetAv.toString()),
         no.nav.paw.besvarelse.EndretAv.valueOf(endretAv.toString()),
         erBesvarelsenEndret,

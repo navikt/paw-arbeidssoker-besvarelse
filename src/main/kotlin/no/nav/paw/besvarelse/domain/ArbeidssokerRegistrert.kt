@@ -2,13 +2,13 @@ package no.nav.paw.besvarelse.domain
 
 import no.nav.paw.besvarelse.domain.besvarelse.Besvarelse
 import no.nav.paw.besvarelse.domain.besvarelse.EndretAv
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 data class ArbeidssokerRegistrert(
     val bruker: Bruker,
     val registreringsId: Int,
     val besvarelse: Besvarelse,
-    val opprettetDato: ZonedDateTime,
+    val opprettetDato: LocalDateTime,
     val opprettetAv: EndretAv
 ) {
     fun tilArbeidssokerRegistrertEntity() = ArbeidssokerRegistrertEntity(
@@ -18,7 +18,7 @@ data class ArbeidssokerRegistrert(
         registreringsId,
         besvarelse,
         null,
-        opprettetDato.toLocalDateTime(),
+        opprettetDato,
         opprettetAv,
         EndretAv.SYSTEM
     )

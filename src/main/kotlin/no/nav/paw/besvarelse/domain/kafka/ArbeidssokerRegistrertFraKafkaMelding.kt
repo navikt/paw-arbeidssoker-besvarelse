@@ -24,14 +24,13 @@ import no.nav.paw.besvarelse.domain.besvarelse.UtdanningBestattSvar
 import no.nav.paw.besvarelse.domain.besvarelse.UtdanningGodkjent
 import no.nav.paw.besvarelse.domain.besvarelse.UtdanningGodkjentSvar
 import no.nav.paw.besvarelse.domain.besvarelse.UtdanningSvar
-import java.time.ZonedDateTime
-
+import java.time.OffsetDateTime
 data class ArbeidssokerRegistrertFraKafkaMelding(
     val foedselsnummer: Foedselsnummer,
     val aktorId: AktorId,
     val registreringsId: Int,
     val besvarelse: BesvarelseFraKafkaMelding,
-    val opprettetDato: ZonedDateTime,
+    val opprettetDato: OffsetDateTime,
     val opprettetAv: EndretAv = EndretAv.SYSTEM
 ) {
     fun tilArbeidssokerRegistrert() = ArbeidssokerRegistrert(
@@ -42,7 +41,7 @@ data class ArbeidssokerRegistrertFraKafkaMelding(
         ),
         registreringsId,
         besvarelse.tilBesvarelse(),
-        opprettetDato,
+        opprettetDato.toLocalDateTime(),
         opprettetAv
     )
 }

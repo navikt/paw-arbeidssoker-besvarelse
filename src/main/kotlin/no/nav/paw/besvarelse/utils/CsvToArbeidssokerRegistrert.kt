@@ -29,7 +29,6 @@ import no.nav.paw.besvarelse.domain.besvarelse.UtdanningGodkjentSvar
 import no.nav.paw.besvarelse.domain.besvarelse.UtdanningSvar
 import java.io.File
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 data class TekstForSporsmal(
@@ -92,7 +91,7 @@ data class UserData(
                 null, // Gjelder kun sykemeldtregistrering?
                 null // Gjelder kun sykemeldtregistrering?
             ),
-            opprettetDato.atZone(ZoneId.of("Europe/Oslo")),
+            opprettetDato,
             opprettetAv
         )
     }
