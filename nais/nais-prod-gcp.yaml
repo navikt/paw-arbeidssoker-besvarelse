@@ -49,6 +49,8 @@ spec:
       value: http://poao-tilgang.poao.svc.cluster.local
     - name: POAO_TILGANG_CLIENT_SCOPE
       value: api://prod-gcp.poao.poao-tilgang/.default
+    - name: OTEL_METRICS_EXPORTER
+      value: "none"
   resources:
     limits:
       cpu: '3'
@@ -60,6 +62,9 @@ spec:
     pool: nav-prod
   tokenx:
     enabled: true
+  observability:
+    tracing:
+      enabled: true
   accessPolicy:
     inbound:
       rules:
