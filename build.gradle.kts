@@ -28,7 +28,7 @@ val poao_tilgang_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
-    id("io.ktor.plugin") version "2.3.1"
+    id("io.ktor.plugin") version "2.3.4"
     id("org.jmailen.kotlinter") version "3.13.0"
     id("com.github.davidmc24.gradle.plugin.avro") version "1.7.0"
 }
