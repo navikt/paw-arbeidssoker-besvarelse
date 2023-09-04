@@ -8,7 +8,6 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 import io.micrometer.prometheus.PrometheusMeterRegistry
 import io.prometheus.client.CollectorRegistry
-import io.prometheus.client.exporter.common.TextFormat
 
 private val collectorRegistry: CollectorRegistry = CollectorRegistry.defaultRegistry
 
