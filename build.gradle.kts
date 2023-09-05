@@ -25,11 +25,12 @@ val mock_oauth2_server_version: String by project
 val avro_version: String by project
 val pdl_client_version: String by project
 val poao_tilgang_version: String by project
+val mockk_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
     id("io.ktor.plugin") version "2.3.1"
-    id("org.jmailen.kotlinter") version "3.13.0"
+    id("org.jmailen.kotlinter") version "3.16.0"
     id("com.github.davidmc24.gradle.plugin.avro") version "1.7.0"
 }
 
@@ -147,4 +148,6 @@ dependencies {
     testImplementation("org.testcontainers:kafka:$testcontainers_version")
     testImplementation("no.nav.security:mock-oauth2-server:$mock_oauth2_server_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    testImplementation("io.ktor:ktor-client-mock:$ktor_version")
+    testImplementation("io.mockk:mockk:$mockk_version")
 }

@@ -32,9 +32,9 @@ class ArbeidssokerRegistrertRepository(
                 val query =
                     queryOf(
                         "SELECT * FROM $ARBEIDSSOKER_REGISTRERT_TABELL WHERE foedselsnummer IN (${
-                        bruker.alleFoedselsnummer.joinToString(
-                            separator = ","
-                        ) { s -> "\'$s\'" }
+                            bruker.alleFoedselsnummer.joinToString(
+                                separator = ","
+                            ) { s -> "\'$s\'" }
                         }) ORDER BY endret_tidspunkt DESC LIMIT 1"
                     ).map { it.tilBesvarelseEntity() }.asSingle
 

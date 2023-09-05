@@ -98,6 +98,7 @@ data class UserData(
     }
 }
 
+@Suppress("ktlint:standard:max-line-length")
 fun main() {
     val mapper = ObjectMapper().findAndRegisterModules()
     val file = File("src/main/resources/import_test2.csv")
@@ -116,7 +117,9 @@ fun main() {
     println("foedselsnummer\taktor_id\tregistrerings_id\tbesvarelse\tendret_tidspunkt\tregistrerings_tidspunkt\topprettet_av\tendret_av\ter_besvarelsen_endret")
     userDataList.forEach {
         println(
-            "${it.bruker.foedselsnummer.foedselsnummer}\t${it.bruker.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(it.besvarelse)}\t${it.opprettetDato.format(formatter)}\t${it.opprettetDato.format(formatter)}\t${it.opprettetAv}\t${EndretAv.SYSTEM}\tfalse" // ktlint-disable max-line-length
+            "${it.bruker.foedselsnummer.foedselsnummer}\t${it.bruker.aktorId.aktorId}\t${it.registreringsId}\t${mapper.writeValueAsString(
+                it.besvarelse
+            )}\t${it.opprettetDato.format(formatter)}\t${it.opprettetDato.format(formatter)}\t${it.opprettetAv}\t${EndretAv.SYSTEM}\tfalse"
         )
     }
 }
