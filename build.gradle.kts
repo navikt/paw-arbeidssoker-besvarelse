@@ -25,11 +25,11 @@ val mock_oauth2_server_version: String by project
 val avro_version: String by project
 val pdl_client_version: String by project
 val poao_tilgang_version: String by project
+val micrometer_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
-    id("io.ktor.plugin") version "2.3.1"
-    id("org.jmailen.kotlinter") version "3.13.0"
+    id("io.ktor.plugin") version "2.3.4"
     id("com.github.davidmc24.gradle.plugin.avro") version "1.7.0"
 }
 
@@ -79,9 +79,6 @@ tasks {
             events = setOf(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
             showStandardStreams = true
         }
-    }
-    check {
-        dependsOn("installKotlinterPrePushHook")
     }
 
     task<JavaExec>("importerCsv") {
@@ -139,6 +136,10 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson:$ktor_version")
     implementation("io.ktor:ktor-server-cors:$ktor_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
+    implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
+    implementation("io.ktor:ktor-server-metrics-micrometer-jvm:$ktor_version")
+
+    implementation("io.micrometer:micrometer-registry-prometheus:$micrometer_version")
 
     // Test
     testImplementation(kotlin("test"))

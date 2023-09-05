@@ -1,9 +1,15 @@
 package no.nav.paw.besvarelse
 
+import io.ktor.server.application.*
 import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.metrics.micrometer.*
 import io.ktor.server.netty.Netty
 import io.ktor.server.routing.routing
+import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics
+import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics
+import io.micrometer.core.instrument.binder.system.ProcessorMetrics
+import io.micrometer.prometheus.*
 import no.nav.paw.besvarelse.config.Config
 import no.nav.paw.besvarelse.config.migrateDatabase
 import no.nav.paw.besvarelse.kafka.consumer.ArbeidssokerRegistreringConsumer
@@ -44,10 +50,18 @@ fun Application.module() {
     thread {
         arbeidssokerRegistreringConsumer.start()
     }
-
+    val appMicrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
+    install(MicrometerMetrics) {
+        registry = appMicrometerRegistry
+        meterBinders = listOf(
+            JvmMemoryMetrics(),
+            JvmGcMetrics(),
+            ProcessorMetrics()
+        )
+    }
     // Routes
     routing {
-        internalRoutes()
+        internalRoutes(appMicrometerRegistry)
         swaggerRoutes()
         apiRoutes()
         veilederRoutes()

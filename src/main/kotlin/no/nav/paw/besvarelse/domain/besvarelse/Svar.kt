@@ -7,7 +7,7 @@ enum class UtdanningSvar {
     VIDEREGAENDE_FAGBREV_SVENNEBREV,
     HOYERE_UTDANNING_1_TIL_4,
     HOYERE_UTDANNING_5_ELLER_MER,
-    INGEN_SVAR;
+    INGEN_SVAR
 }
 
 enum class UtdanningBestattSvar {
