@@ -23,14 +23,13 @@ data class Config(
             name = "idporten",
             discoveryUrl = dotenv["IDPORTEN_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["IDPORTEN_CLIENT_ID"]),
-            cookieName = "selvbetjening-idtoken",
             requiredClaims = RequiredClaims("idporten", arrayOf("pid", "acr"))
         ),
         AuthProvider(
-            name = "tokendings",
+            name = "tokenx",
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
-            requiredClaims = RequiredClaims("tokendings", arrayOf("acr=Level4"))
+            requiredClaims = RequiredClaims(dotenv["TOKEN_X_ISSUER"], arrayOf("acr=Level4", "acr=idporten-loa-high"))
         ),
         AuthProvider(
             name = "azure",
