@@ -117,7 +117,7 @@ Vi benytter mock-ouath2-server til å utstede tokens på lokal maskin. Følgende
 5. Skriv inn noe random i "Enter any user/subject" og pid i optional claims, f.eks.
 
 ```json
-{ "acr": "Level3", "pid": "18908396568" }
+{ "acr": "Level4", "pid": "18908396568" }
 ```
 
 For veileder:
