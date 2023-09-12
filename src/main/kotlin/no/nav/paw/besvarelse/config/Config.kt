@@ -29,7 +29,7 @@ data class Config(
             name = "tokenx",
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
-            requiredClaims = RequiredClaims(dotenv["TOKEN_X_ISSUER"], arrayOf("acr=Level4", "acr=idporten-loa-high"), true)
+            requiredClaims = RequiredClaims("tokenx", arrayOf("acr=Level4", "acr=idporten-loa-high"), true)
 
         ),
         AuthProvider(
