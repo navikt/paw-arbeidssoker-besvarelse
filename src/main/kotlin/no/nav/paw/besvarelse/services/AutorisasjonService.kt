@@ -13,7 +13,7 @@ class AutorisasjonService(
     private val poaoTilgangHttpClient: PoaoTilgangCachedClient
 ) {
     fun verifiserVeilederTilgangTilBruker(navAnsatt: NavAnsatt, foedselsnummer: Foedselsnummer): Boolean {
-        logger.info("NAV-ansatt (${navAnsatt.ident}) forsøker å hente informasjon om bruker: $foedselsnummer")
+        logger.info("NAV-ansatt forsøker å hente informasjon om bruker: $foedselsnummer")
         autitLogger.info(
             auditLogMelding(
                 foedselsnummer,
@@ -32,7 +32,7 @@ class AutorisasjonService(
             .isPermit
 
         if (!harNavAnsattTilgang) {
-            logger.warn("NAV-ansatt (${navAnsatt.ident}) har ikke tilgang til bruker: $foedselsnummer (v/poao-tilgang)")
+            logger.warn("NAV-ansatt har ikke tilgang til bruker: $foedselsnummer (v/poao-tilgang)")
             autitLogger.info(
                 auditLogMelding(
                     foedselsnummer,
@@ -41,7 +41,7 @@ class AutorisasjonService(
                 )
             )
         } else {
-            logger.warn("NAV-ansatt (${navAnsatt.ident}) har hentet informasjon om bruker: $foedselsnummer")
+            logger.warn("NAV-ansatt har hentet informasjon om bruker: $foedselsnummer")
             autitLogger.info(
                 auditLogMelding(
                     foedselsnummer,
