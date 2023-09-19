@@ -47,6 +47,7 @@ enum class DinSituasjonSvar {
     NY_JOBB,
     MIDLERTIDIG_JOBB,
     KONKURS,
+    SAGT_OPP,
     UAVKLART,
     ANNET
 }
