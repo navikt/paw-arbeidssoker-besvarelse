@@ -41,7 +41,7 @@ class AutorisasjonService(
                 )
             )
         } else {
-            logger.info("NAV-ansatt ${navAnsatt.ident} har hentet informasjon om bruker: $foedselsnummer")
+            logger.info("NAV-ansatt har hentet informasjon om bruker: $foedselsnummer")
             autitLogger.info(
                 auditLogMelding(
                     foedselsnummer,
