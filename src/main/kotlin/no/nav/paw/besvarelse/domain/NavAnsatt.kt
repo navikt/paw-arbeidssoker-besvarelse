@@ -4,5 +4,5 @@ import java.util.*
 
 data class NavAnsatt(
     val azureId: UUID,
-    val navn: String
+    val ident: String
 )
