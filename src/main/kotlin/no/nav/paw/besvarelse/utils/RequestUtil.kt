@@ -7,7 +7,7 @@ import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.NavAnsatt
 import no.nav.paw.besvarelse.plugins.StatusException
 import no.nav.security.token.support.v2.TokenValidationContextPrincipal
-import java.util.*
+import java.util.UUID
 
 fun ApplicationCall.getClaim(issuer: String, name: String): String? =
     authentication.principal<TokenValidationContextPrincipal>()
