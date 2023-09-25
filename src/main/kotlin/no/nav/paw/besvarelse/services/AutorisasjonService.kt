@@ -18,7 +18,7 @@ class AutorisasjonService(
             auditLogMelding(
                 foedselsnummer,
                 navAnsatt,
-                "NAV-ansatt (${navAnsatt.ident}) forsøker å hente informasjon om bruker: ${foedselsnummer.foedselsnummer}"
+                "NAV-ansatt forsøker å hente informasjon om bruker: ${foedselsnummer.foedselsnummer}"
             )
         )
 
@@ -37,7 +37,7 @@ class AutorisasjonService(
                 auditLogMelding(
                     foedselsnummer,
                     navAnsatt,
-                    "NAV-ansatt (${navAnsatt.ident}) har ikke tilgang til bruker: ${foedselsnummer.foedselsnummer} (v/poao-tilgang)"
+                    "NAV-ansatt har ikke tilgang til bruker: ${foedselsnummer.foedselsnummer} (v/poao-tilgang)"
                 )
             )
         } else {
@@ -46,7 +46,7 @@ class AutorisasjonService(
                 auditLogMelding(
                     foedselsnummer,
                     navAnsatt,
-                    "NAV-ansatt (${navAnsatt.ident}) har hentet informasjon om bruker: ${foedselsnummer.foedselsnummer}"
+                    "NAV-ansatt har hentet informasjon om bruker: ${foedselsnummer.foedselsnummer}"
                 )
             )
         }

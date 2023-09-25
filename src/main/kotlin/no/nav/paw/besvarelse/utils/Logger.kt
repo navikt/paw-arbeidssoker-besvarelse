@@ -19,7 +19,7 @@ fun auditLogMelding(foedselsnummer: Foedselsnummer, navAnsatt: NavAnsatt, meldin
         .event(CefMessageEvent.ACCESS)
         .name("Sporingslogg")
         .severity(CefMessageSeverity.INFO)
-        .sourceUserId(navAnsatt.ident)
+        .sourceUserId(navAnsatt.azureId.toString())
         .destinationUserId(foedselsnummer.foedselsnummer)
         .timeEnded(System.currentTimeMillis())
         .extension("msg", melding)
