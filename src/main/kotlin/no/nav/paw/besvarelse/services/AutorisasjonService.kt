@@ -14,13 +14,6 @@ class AutorisasjonService(
 ) {
     fun verifiserVeilederTilgangTilBruker(navAnsatt: NavAnsatt, foedselsnummer: Foedselsnummer): Boolean {
         logger.info("NAV-ansatt forsøker å hente informasjon om bruker: $foedselsnummer")
-        autitLogger.info(
-            auditLogMelding(
-                foedselsnummer,
-                navAnsatt,
-                "NAV-ansatt forsøker å hente informasjon om bruker: ${foedselsnummer.foedselsnummer}"
-            )
-        )
 
         val harNavAnsattTilgang = poaoTilgangHttpClient.evaluatePolicy(
             NavAnsattTilgangTilEksternBrukerPolicyInput(
@@ -37,7 +30,7 @@ class AutorisasjonService(
                 auditLogMelding(
                     foedselsnummer,
                     navAnsatt,
-                    "NAV-ansatt har ikke tilgang til bruker: ${foedselsnummer.foedselsnummer} (v/poao-tilgang)"
+                    "NAV-ansatt har ikke tilgang til bruker (v/poao-tilgang)"
                 )
             )
         } else {
@@ -46,7 +39,7 @@ class AutorisasjonService(
                 auditLogMelding(
                     foedselsnummer,
                     navAnsatt,
-                    "NAV-ansatt har hentet informasjon om bruker: ${foedselsnummer.foedselsnummer}"
+                    "NAV-ansatt har hentet informasjon om bruker"
                 )
             )
         }
