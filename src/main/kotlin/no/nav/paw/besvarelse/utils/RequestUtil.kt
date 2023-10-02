@@ -7,7 +7,7 @@ import no.nav.paw.besvarelse.domain.Foedselsnummer
 import no.nav.paw.besvarelse.domain.NavAnsatt
 import no.nav.paw.besvarelse.plugins.StatusException
 import no.nav.security.token.support.v2.TokenValidationContextPrincipal
-import java.util.UUID
+import java.util.*
 
 fun ApplicationCall.getClaim(issuer: String, name: String): String? =
     authentication.principal<TokenValidationContextPrincipal>()
@@ -16,10 +16,8 @@ fun ApplicationCall.getClaim(issuer: String, name: String): String? =
         ?.getStringClaim(name)
 
 fun ApplicationCall.getPidClaim(): Foedselsnummer =
-    getClaim("idporten", "pid")
+    getClaim("tokenx", "pid")
         ?.let { Foedselsnummer(it) }
-        ?: getClaim("tokenx", "pid")
-            ?.let { Foedselsnummer(it) }
         ?: throw StatusException(HttpStatusCode.Forbidden, "Fant ikke 'pid'-claim i token fra issuer")
 
 private fun ApplicationCall.getNavAnsattAzureId(): UUID =

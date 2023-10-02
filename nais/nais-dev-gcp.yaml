@@ -13,8 +13,6 @@ spec:
       claims:
         extra:
           - NAVident
-  idporten:
-    enabled: true
   secureLogs:
     enabled: true
   image: {{ image }}

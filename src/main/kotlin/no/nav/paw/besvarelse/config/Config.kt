@@ -20,12 +20,6 @@ data class Config(
     ),
     val authentication: List<AuthProvider> = listOf(
         AuthProvider(
-            name = "idporten",
-            discoveryUrl = dotenv["IDPORTEN_WELL_KNOWN_URL"],
-            acceptedAudience = listOf(dotenv["IDPORTEN_CLIENT_ID"]),
-            requiredClaims = RequiredClaims("idporten", arrayOf("pid", "acr"))
-        ),
-        AuthProvider(
             name = "tokenx",
             discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
