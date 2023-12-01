@@ -40,8 +40,6 @@ spec:
       value: paw.arbeidssoker-besvarelse-v2
     - name: KAFKA_PRODUCER_ID
       value: arbeidssoker-besvarelse-producer-v1
-    - name: UNLEASH_URL
-      value: https://unleash.nais.io/api/
     - name: PDL_URL
       value: https://pdl-api.prod-fss-pub.nais.io/graphql
     - name: PDL_SCOPE

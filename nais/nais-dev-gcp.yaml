@@ -40,8 +40,6 @@ spec:
       value: paw.arbeidssoker-besvarelse-v2
     - name: KAFKA_PRODUCER_ID
       value: arbeidssoker-besvarelse-producer-v1
-    - name: UNLEASH_URL
-      value: https://unleash.nais.io/api/
     - name: PDL_URL
       value: https://pdl-api.dev-fss-pub.nais.io/graphql
     - name: PDL_SCOPE
@@ -84,7 +82,7 @@ spec:
             cluster: dev-fss
           - application: veilarbperson
             namespace: pto
-            cluster: dev-fss 
+            cluster: dev-fss
       outbound:
         rules:
           - application: poao-tilgang

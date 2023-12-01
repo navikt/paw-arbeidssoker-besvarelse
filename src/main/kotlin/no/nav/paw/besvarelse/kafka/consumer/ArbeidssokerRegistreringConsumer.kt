@@ -2,7 +2,6 @@ package no.nav.paw.besvarelse.kafka.consumer
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import no.nav.common.featuretoggle.UnleashClient
 import no.nav.paw.besvarelse.domain.ArbeidssokerRegistrert
 import no.nav.paw.besvarelse.domain.kafka.ArbeidssokerRegistrertFraKafkaMelding
 import no.nav.paw.besvarelse.services.ArbeidssokerRegistrertService
@@ -15,7 +14,6 @@ class ArbeidssokerRegistreringConsumer(
     private val topic: String,
     private val consumer: KafkaConsumer<String, String>,
     private val arbeidssokerRegistrertService: ArbeidssokerRegistrertService,
-    private val unleashClient: UnleashClient,
     private val objectMapper: ObjectMapper
 ) {
 

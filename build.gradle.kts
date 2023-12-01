@@ -97,7 +97,6 @@ dependencies {
     // NAV common
     implementation("no.nav.common:token-client:$nav_common_modules_version")
     implementation("no.nav.common:kafka:$nav_common_modules_version")
-    implementation("no.nav.common:feature-toggle:$nav_common_modules_version")
     implementation("no.nav.common:audit-log:$nav_common_modules_version")
 
     // NAV security

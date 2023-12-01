@@ -14,10 +14,6 @@ data class Config(
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_BESVARELSE_ARBEIDSSOKER_REGISTRERT_PASSWORD"]
     ),
     val naisEnv: NaisEnv = NaisEnv.current(),
-    val unleashClientConfig: UnleashClientConfig = UnleashClientConfig(
-        dotenv["UNLEASH_URL"],
-        dotenv["NAIS_APP_NAME"]
-    ),
     val authentication: List<AuthProvider> = listOf(
         AuthProvider(
             name = "tokenx",
@@ -95,12 +91,6 @@ data class KafkaProducers(
 data class KafkaProducer(
     val topic: String
 )
-
-data class UnleashClientConfig(
-    val url: String,
-    val appName: String
-)
-
 data class AuthProvider(
     val name: String,
     val discoveryUrl: String,
