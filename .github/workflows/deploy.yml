@@ -48,13 +48,15 @@ jobs:
     name: Deploy to dev-gcp
     needs: [build]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v3
 
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@v2
         env:
           TEAM: paw
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-dev-gcp.yaml,nais/connector.yaml
           REF: ${{ env.COMMIT }}
@@ -63,15 +65,17 @@ jobs:
   deploy-prod:
     if: github.ref == 'refs/heads/main'
     name: Deploy to prod-gcp
-    needs: [build]
+    needs: [build,deploy-dev]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
      - uses: actions/checkout@v3
 
-     - uses: nais/deploy/actions/deploy@v1
+     - uses: nais/deploy/actions/deploy@v2
        env:
          TEAM: paw
-         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
          CLUSTER: prod-gcp
          RESOURCE: nais/nais-prod-gcp.yaml,nais/connector.yaml
          REF: ${{ env.COMMIT }}
