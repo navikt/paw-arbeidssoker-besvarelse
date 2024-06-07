@@ -52,11 +52,11 @@ spec:
       value: "none"
   resources:
     limits:
-      cpu: '3'
+      cpu: 1000m
       memory: 768Mi
     requests:
-      cpu: 500m
-      memory: 580Mi
+      cpu: 50m
+      memory: 500Mi
   kafka:
     pool: nav-prod
   tokenx:
