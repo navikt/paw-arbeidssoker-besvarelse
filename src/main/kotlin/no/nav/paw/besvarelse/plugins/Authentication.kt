@@ -18,7 +18,6 @@ fun Application.configureAuthentication(authProviders: List<AuthProvider>) {
                         name = authProvider.name,
                         discoveryUrl = authProvider.discoveryUrl,
                         acceptedAudience = authProvider.acceptedAudience,
-                        cookieName = authProvider.cookieName
                     )
                 )
             )

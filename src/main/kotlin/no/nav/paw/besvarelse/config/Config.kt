@@ -95,7 +95,6 @@ data class AuthProvider(
     val name: String,
     val discoveryUrl: String,
     val acceptedAudience: List<String>,
-    val cookieName: String? = null,
     val requiredClaims: RequiredClaims? = null
 )
 

@@ -24,6 +24,7 @@ import no.nav.paw.besvarelse.kafka.producer.ArbeidssokerBesvarelseProducer
 import no.nav.paw.besvarelse.repository.ArbeidssokerRegistrertRepository
 import no.nav.paw.besvarelse.services.ArbeidssokerRegistrertService
 import no.nav.paw.besvarelse.services.AutorisasjonService
+import no.nav.paw.besvarelse.services.PdlService
 import no.nav.paw.besvarelse.token.TokenService
 import no.nav.paw.pdl.PdlClient
 import no.nav.poao_tilgang.client.PoaoTilgangCachedClient
@@ -118,6 +119,8 @@ fun Application.configureDependencyInjection(config: Config) {
                 single { AutorisasjonService(get()) }
 
                 single { PdlClient(config.pdlClientConfig.url, "OPP", get()) { TokenService().createMachineToMachineToken(config.pdlClientConfig.scope) } }
+
+                single { PdlService(get()) }
 
                 single {
                     ArbeidssokerRegistreringConsumer(
