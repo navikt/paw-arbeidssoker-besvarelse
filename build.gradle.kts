@@ -2,6 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 val githubPassword: String by project
+val jvmMajorVersion: String by project
 
 val ktor_version: String by project
 val logback_version: String by project
@@ -26,19 +27,23 @@ val avro_version: String by project
 val pdl_client_version: String by project
 val poao_tilgang_version: String by project
 val micrometer_version: String by project
+val otel_javaagent_version: String by project
+
+val javaVersion = JavaLanguageVersion.of(jvmMajorVersion)
+val baseImage: String by project
+val image: String? by project
+
+val agents by configurations.creating
 
 plugins {
-    kotlin("jvm") version "1.8.10"
-    id("io.ktor.plugin") version "2.3.4"
-    id("com.github.davidmc24.gradle.plugin.avro") version "1.7.0"
+    kotlin("jvm") version "2.0.0"
+    id("io.ktor.plugin") version "2.3.12"
+    id("com.github.davidmc24.gradle.plugin.avro") version "1.9.1" // TODO Plugin er ikke lengre under aktiv utvikling
+    id("com.google.cloud.tools.jib") version "3.4.1"
 }
 
 group = "no.nav.paw.besvarelse"
 version = "0.0.1"
-
-application {
-    mainClass.set("no.nav.paw.besvarelse.ApplicationKt")
-}
 
 repositories {
     mavenCentral()
@@ -49,47 +54,32 @@ repositories {
         url = uri("https://jitpack.io")
     }
     maven {
-        url = uri("https://maven.pkg.github.com/navikt/*")
+        url = uri("https://maven.pkg.github.com/navikt/common-java-modules")
         credentials {
             username = "x-access-token"
             password = githubPassword
         }
     }
-}
-
-tasks {
-    compileJava {
-        targetCompatibility = JavaVersion.VERSION_17.toString()
-        sourceCompatibility = JavaVersion.VERSION_17.toString()
-    }
-    compileTestKotlin {
-        dependsOn("generateTestAvroJava")
-    }
-    kotlin {
-        jvmToolchain {
-            languageVersion.set(JavaLanguageVersion.of("17"))
+    maven {
+        url = uri("https://maven.pkg.github.com/navikt/token-support")
+        credentials {
+            username = "x-access-token"
+            password = githubPassword
         }
     }
-    test {
-        useJUnitPlatform()
-        testLogging {
-            showExceptions = true
-            showStackTraces = true
-            exceptionFormat = TestExceptionFormat.FULL
-            events = setOf(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
-            showStandardStreams = true
+    maven {
+        url = uri("https://maven.pkg.github.com/navikt/poao-tilgang")
+        credentials {
+            username = "x-access-token"
+            password = githubPassword
         }
     }
-
-    task<JavaExec>("importerCsv") {
-        mainClass.set("no.nav.paw.besvarelse.utils.CsvToArbeidssokerRegistrertKt")
-        classpath = sourceSets["main"].runtimeClasspath
-    }
-}
-
-ktor {
-    fatJar {
-        archiveFileName.set("fat.jar")
+    maven {
+        url = uri("https://maven.pkg.github.com/navikt/paw-kotlin-clients")
+        credentials {
+            username = "x-access-token"
+            password = githubPassword
+        }
     }
 }
 
@@ -103,9 +93,13 @@ dependencies {
     implementation("no.nav.security:token-validation-ktor-v2:$token_support_version")
     implementation("no.nav.security:token-client-core:$token_support_version")
 
-    // Annet
+    // NAV POAO
+    implementation("no.nav.poao-tilgang:client:$poao_tilgang_version")
+
+    // NAV PAW
     implementation("no.nav.paw:pdl-client:$pdl_client_version")
-    implementation("com.github.navikt.poao-tilgang:client:$poao_tilgang_version")
+
+    // Annet
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:$jackson_version")
@@ -115,9 +109,9 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder:$logstash_version")
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
-    implementation("org.flywaydb:flyway-core:$flyway_version")
+    implementation("org.flywaydb:flyway-database-postgresql:$flyway_version")
     implementation("com.github.seratch:kotliquery:$kotliquery_version")
-    implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
+    implementation("io.micrometer:micrometer-registry-prometheus:$micrometer_version")
     implementation("no.bekk.bekkopen:nocommons:$nocommons_version")
     implementation("io.github.cdimascio:dotenv-kotlin:$dotenv_kotlin_version")
 
@@ -138,8 +132,6 @@ dependencies {
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
     implementation("io.ktor:ktor-server-metrics-micrometer-jvm:$ktor_version")
 
-    implementation("io.micrometer:micrometer-registry-prometheus:$micrometer_version")
-
     // Test
     testImplementation(kotlin("test"))
     testImplementation("org.testcontainers:testcontainers:$testcontainers_version")
@@ -147,4 +139,59 @@ dependencies {
     testImplementation("org.testcontainers:kafka:$testcontainers_version")
     testImplementation("no.nav.security:mock-oauth2-server:$mock_oauth2_server_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+
+    agents("io.opentelemetry.javaagent:opentelemetry-javaagent:$otel_javaagent_version")
+}
+
+application {
+    mainClass.set("no.nav.paw.besvarelse.ApplicationKt")
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(javaVersion)
+    }
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
+}
+
+tasks.compileTestKotlin {
+    dependsOn("generateTestAvroJava")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        showExceptions = true
+        showStackTraces = true
+        exceptionFormat = TestExceptionFormat.FULL
+        events = setOf(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
+        showStandardStreams = true
+    }
+}
+
+task<JavaExec>("importerCsv") {
+    mainClass.set("no.nav.paw.besvarelse.utils.CsvToArbeidssokerRegistrertKt")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<Copy>("copyAgents") {
+    from(agents)
+    into("${layout.buildDirectory.get()}/agents")
+}
+
+tasks.named("assemble") {
+    finalizedBy("copyAgents")
+}
+
+tasks.withType(Jar::class) {
+    manifest {
+        attributes["Implementation-Version"] = project.version
+        attributes["Main-Class"] = application.mainClass.get()
+        attributes["Implementation-Title"] = rootProject.name
+    }
 }

@@ -62,9 +62,9 @@ $ curl https://arbeidssoker-besvarelse.intern.dev.nav.no/api/v1/besvarelse -H 'A
 
 Under er det satt opp et par ting som må på plass for at applikasjonen og databasen skal fungere.
 
-### JDK 17
+### JDK 21
 
-JDK 17 må være installert. Enkleste måten å installere riktig versjon av Java er ved å
+JDK 21 må være installert. Enkleste måten å installere riktig versjon av Java er ved å
 bruke [sdkman](https://sdkman.io/install).
 
 ### Docker
