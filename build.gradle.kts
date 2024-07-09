@@ -153,6 +153,12 @@ kotlin {
     }
 }
 
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
+}
+
 tasks.compileTestKotlin {
     dependsOn("generateTestAvroJava")
 }
