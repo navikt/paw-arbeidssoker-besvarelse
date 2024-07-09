@@ -109,7 +109,7 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder:$logstash_version")
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
-    implementation("org.flywaydb:flyway-core:$flyway_version")
+    implementation("org.flywaydb:flyway-database-postgresql:$flyway_version")
     implementation("com.github.seratch:kotliquery:$kotliquery_version")
     implementation("io.micrometer:micrometer-registry-prometheus:$micrometer_version")
     implementation("no.bekk.bekkopen:nocommons:$nocommons_version")
