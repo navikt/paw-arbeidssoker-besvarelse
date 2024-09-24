@@ -81,7 +81,7 @@ spec:
           - application: veilarbvedtaksstotte
             namespace: pto
             cluster: dev-fss
-           - application: veilarbvedtaksstotte
+          - application: veilarbvedtaksstotte
             namespace: obo
             cluster: dev-gcp
           - application: veilarbperson
