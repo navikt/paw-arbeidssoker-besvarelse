@@ -69,9 +69,7 @@ spec:
         rules:
           - application: aia-backend
             namespace: paw
-          - application: arbeidssokerregistrering-for-veileder
-          - application: debug-dings
-            namespace: plattformsikkerhet
+          - application: arbeidssokerregistrering-for-veileder          
           - application: azure-token-generator
             namespace: aura
             cluster: dev-gcp
