@@ -1,3 +1,6 @@
+> [!WARNING]
+> Appen er ikke lengre i bruk og koden er arkivert 
+
 # paw-arbeidssoker-besvarelse
 
 Hente og endre besvarelse for arbeidssøker
